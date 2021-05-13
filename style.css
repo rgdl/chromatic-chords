@@ -1,0 +1,9 @@
+html, body {
+    background-image: linear-gradient(to bottom, darkblue, black);
+    color: ivory;
+    height: 100%;
+}
+
+h1, h2 {
+    text-align: center;
+}
