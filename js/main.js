@@ -43,8 +43,29 @@ document.addEventListener('DOMContentLoaded', function() {
         triadContainer.appendChild(node);
     }
 
+    function triadsBox(text, position) {
+        console.assert(Math.min(...position) >= 0)
+        console.assert(Math.max(...position) <= 1)
+        let node = document.createElement('div');
+        node.textContent = text;
+        node.className = 'triads-box';
+        applyStyleToNode(
+            node,
+            {
+                width: `${NODE_SIZE}%`,
+                height: `${NODE_SIZE}%`,
+                left: `${position[1] * 100 - NODE_SIZE / 2}%`,
+                top: `${position[0] * 100 - NODE_SIZE / 2}%`,
+            },
+        );
+        triadContainer.appendChild(node);
+    }
+
     cardinalChordBox('C augmented', [0, 0.5]);
     cardinalChordBox('F augmented', [1, 0]);
     cardinalChordBox('G augmented', [1, 1]);
+
+    triadsBox('between c and f', [0.5, 0.25])
+
     setUpTriadContainer();
 })
