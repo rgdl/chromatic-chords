@@ -15,6 +15,12 @@ h1, h2 {
     position: relative;
 }
 
+#triad-selection {
+    background: ivory;
+    width: 100%;
+    height: 30px;
+}
+
 .chord-box {
     background: ivory;
     position: absolute;

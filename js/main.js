@@ -3,6 +3,50 @@
 const CONTAINER_SIZE = 60;
 const NODE_SIZE = CONTAINER_SIZE / 6;
 
+const NOTE_NAMES = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+
+class Chord {
+    constructor(name, notes) {
+        this.name = name;
+        this.notes = notes;
+        this.verify();
+    }
+
+    verify() {
+        this.notes.map((note, i) => {
+            console.assert(note >= 0);
+            console.assert(note < 12);
+            i > 0 && console.assert(note > this.notes[i - 1]);
+        });
+    }
+
+    distance(other) {
+        console.assert(this.notes.length === other.notes.length);
+        let minDist = Infinity;
+        const otherNotes = [...other.notes];
+
+        // Iterate through all possible rotations of `otherNotes`
+        for (let i = 0; i < this.notes.length; i++) {
+            const dist = otherNotes
+                .map((n, i) => Math.min(
+                    Math.abs(n - this.notes[i]),
+                    Math.abs(12 + n - this.notes[i]),
+                ))
+                .reduce((a, b) => a + b, 0);
+            if (dist < minDist) {
+                minDist = dist;
+            }
+            otherNotes.unshift(otherNotes.pop());
+        }
+        return minDist;
+    }
+}
+
+const AUG_TRIADS = ['C', 'F', 'D', 'G'].map((root, i) => new Chord(`${root} Augmented`, [i, 4 + i, 8 + i]));
+[[0, 1], [1, 2], [2, 3], [3, 0]].map(chords => console.assert(AUG_TRIADS[chords[0]].distance(AUG_TRIADS[chords[1]]) === 3));
+[[0, 2], [1, 3], [2, 0], [3, 1]].map(chords => console.assert(AUG_TRIADS[chords[0]].distance(AUG_TRIADS[chords[1]]) === 6));
+
+
 class VisualElement {
     constructor(node, style = {}) {
         this.node = node;
@@ -14,13 +58,19 @@ class VisualElement {
     }
 }
 
+class ChordSelection extends VisualElement {
+    constructor(node) {
+        super(node);
+    }
+}
+
 class ChordContainer extends VisualElement {
     constructor(node) {
         super(
             node,
             {
                 width: `${CONTAINER_SIZE}%`, height: `${CONTAINER_SIZE}%`,
-                padding: `${CONTAINER_SIZE * NODE_SIZE / 200}%`,
+                marginTop: `${NODE_SIZE / 2}%`,  marginBottom: `${NODE_SIZE / 2}%`,
             },
         );
 
@@ -60,6 +110,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const triadContainer = new ChordContainer(
         document.getElementById("triad-container")
     )
+
+    const triadSelection = new ChordSelection(
+        document.getElementById("triad-selection")
+    );
 
     // Cardinal boxes
     new ChordBox(triadContainer, 'C augmented', [0, 0.5]);
