@@ -42,9 +42,23 @@ class Chord {
     }
 }
 
-const AUG_TRIADS = ['C', 'F', 'D', 'G'].map((root, i) => new Chord(`${root} Augmented`, [i, 4 + i, 8 + i]));
-[[0, 1], [1, 2], [2, 3], [3, 0]].map(chords => console.assert(AUG_TRIADS[chords[0]].distance(AUG_TRIADS[chords[1]]) === 3));
-[[0, 2], [1, 3], [2, 0], [3, 1]].map(chords => console.assert(AUG_TRIADS[chords[0]].distance(AUG_TRIADS[chords[1]]) === 6));
+const AUG_TRIADS = Object.fromEntries(['C', 'F', 'D', 'G'].map(
+    (root, i) => [root, new Chord(`${root} Augmented`, [i, 4 + i, 8 + i])]
+));
+
+const MAJOR_CHORDS = Object.fromEntries(NOTE_NAMES.map(
+    (root, i) => [root, new Chord(`${root} Major`, [i, 4 + i, 7 + i].map(n => n % 12).sort((a, b) => a - b))]
+));
+
+const MINOR_CHORDS = Object.fromEntries(NOTE_NAMES.map(
+    (root, i) => [root, new Chord(`${root} Minor`, [i, 3 + i, 7 + i].map(n => n % 12).sort((a, b) => a - b))]
+));
+
+// Spot-check assertions on chord distances
+[['C', 'F'], ['F', 'D'], ['D', 'G'], ['G', 'C']].map(chords => console.assert(AUG_TRIADS[chords[0]].distance(AUG_TRIADS[chords[1]]) === 3));
+[['C', 'D'], ['F', 'G'], ['D', 'C'], ['G', 'F']].map(chords => console.assert(AUG_TRIADS[chords[0]].distance(AUG_TRIADS[chords[1]]) === 6));
+console.assert(MAJOR_CHORDS['C'].distance(MINOR_CHORDS['E']), 1);
+console.assert(MAJOR_CHORDS['C'].distance(MAJOR_CHORDS['G']), 3);
 
 
 class VisualElement {
