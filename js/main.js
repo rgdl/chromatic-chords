@@ -1,4 +1,4 @@
-// TODO: because of CORS issues, need to supply over a local server if I want importable modules. This may become necessary if the file grows too much
+// TODO: because of CORS issues, need to supply over a local server if I want importable modules. This may become necessary if the file grows too much. Rather than the server approach, maybe I could have a transpiling step with webpack?
 // TODO: position with flex box or grid instead?
 const CONTAINER_SIZE = 60;
 const NODE_SIZE = CONTAINER_SIZE / 6;
@@ -20,22 +20,25 @@ class Chord {
         });
     }
 
-    distance(other) {
+    distance(other, verbose = false) {
         console.assert(this.notes.length === other.notes.length);
         let minDist = Infinity;
         const otherNotes = [...other.notes];
 
         // Iterate through all possible rotations of `otherNotes`
         for (let i = 0; i < this.notes.length; i++) {
+            verbose && console.log(otherNotes, this.notes);
             const dist = otherNotes
-                .map((n, i) => Math.min(
-                    Math.abs(n - this.notes[i]),
-                    Math.abs(12 + n - this.notes[i]),
-                ))
+                .map((n, i) => {
+                    const noteDistances = [Math.abs(12 + n - this.notes[i]) % 12, Math.abs(12 + this.notes[i] - n) % 12];
+                    verbose && console.log(noteDistances);
+                    return Math.min(...noteDistances);
+                })
                 .reduce((a, b) => a + b, 0);
             if (dist < minDist) {
                 minDist = dist;
             }
+            verbose && console.log(dist);
             otherNotes.unshift(otherNotes.pop());
         }
         return minDist;
@@ -54,12 +57,21 @@ const MINOR_CHORDS = Object.fromEntries(NOTE_NAMES.map(
     (root, i) => [root, new Chord(`${root} Minor`, [i, 3 + i, 7 + i].map(n => n % 12).sort((a, b) => a - b))]
 ));
 
-// Spot-check assertions on chord distances
-[['C', 'F'], ['F', 'D'], ['D', 'G'], ['G', 'C']].map(chords => console.assert(AUG_TRIADS[chords[0]].distance(AUG_TRIADS[chords[1]]) === 3));
-[['C', 'D'], ['F', 'G'], ['D', 'C'], ['G', 'F']].map(chords => console.assert(AUG_TRIADS[chords[0]].distance(AUG_TRIADS[chords[1]]) === 6));
-console.assert(MAJOR_CHORDS['C'].distance(MINOR_CHORDS['E']), 1);
-console.assert(MAJOR_CHORDS['C'].distance(MAJOR_CHORDS['G']), 3);
+function assertChordDistanceEquals(chordA, chordB, expectedDistance) {
+    const actualDistance = chordA.distance(chordB);
+    if (actualDistance !== expectedDistance) {
+        chordA.distance(chordB, verbose = true);
+        throw new Error(`Distance from ${chordA.name} to ${chordB.name} is ${actualDistance}, but the expected distance is ${expectedDistance}`);
+    }
+}
 
+// Spot-check assertions on chord distances
+[['C', 'F'], ['F', 'D'], ['D', 'G'], ['G', 'C']].map(chords => assertChordDistanceEquals(AUG_TRIADS[chords[0]], AUG_TRIADS[chords[1]], 3));
+[['C', 'D'], ['F', 'G'], ['D', 'C'], ['G', 'F']].map(chords => assertChordDistanceEquals(AUG_TRIADS[chords[0]], AUG_TRIADS[chords[1]], 6));
+assertChordDistanceEquals(MAJOR_CHORDS['C'], MINOR_CHORDS['E'], 1);
+assertChordDistanceEquals(MAJOR_CHORDS['C'], MAJOR_CHORDS['G'], 3);
+assertChordDistanceEquals(MAJOR_CHORDS['E'], AUG_TRIADS['C'], 1);
+assertChordDistanceEquals(AUG_TRIADS['C'], MAJOR_CHORDS['E'], 1);
 
 class VisualElement {
     constructor(node, style = {}) {
@@ -100,7 +112,9 @@ class ChordContainer extends VisualElement {
 class ChordBox extends VisualElement {
     constructor(container, text, position) {
         const node = document.createElement('div');
-        node.textContent = text;
+        if (text) {
+            node.textContent = text;
+        }
         node.className = 'chord-box';
         container.appendChild(node);
         super(
@@ -120,6 +134,36 @@ class ChordBox extends VisualElement {
     }
 }
 
+/**
+ * A symmetrical chord (augmented triad or diminished seventh)
+ */
+class CardinalChordBox extends ChordBox {
+    constructor(container, text, chord, position) {
+        super(container, text, position);
+        this.chord = chord;
+    }
+}
+
+/**
+ * A collection of asymettrical chords (e.g. major triads, dominant sevenths)
+ */
+class AsymmetricalChordBox extends ChordBox {
+    constructor(container, neighbours, chordCols, chordLinks) {
+        console.assert(neighbours.length === 2);
+        const position = [0, 1].map(i => (neighbours[0].position[i] + neighbours[1].position[i]) / 2);
+        super(container, null, position);
+        this.chordCols = chordCols;
+        this.checkChordDistances();
+    }
+
+    checkChordDistances() {
+        this.chordCols[0].map(chord => assertChordDistanceEquals(neighbours[0].chord, chord, 1));
+        this.chordCols[this.chordCols.length - 1].map(chord => assertChordDistanceEquals(neighbours[1].chord, chord, 1));
+
+        // TODO: assertions going from column to column within 
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const triadContainer = new ChordContainer(
         document.getElementById("triad-container")
@@ -130,12 +174,21 @@ document.addEventListener('DOMContentLoaded', function() {
     );
 
     // Cardinal boxes
-    new ChordBox(triadContainer, 'C augmented', [0, 0.5]);
-    new ChordBox(triadContainer, 'F augmented', [1, 0]);
-    new ChordBox(triadContainer, 'G augmented', [1, 1]);
+    const cardinalBoxPositions = [[0, 0.5], [0.5, 0], [1, 0.5], [0.5, 1]];
+    const triadCardinalBoxes = Object.fromEntries(
+        ['C', 'F', 'D', 'G'].map((n, i) => [
+            n, new CardinalChordBox(triadContainer, `${n} augmented`, AUG_TRIADS[n], cardinalBoxPositions[i])
+        ])
+    );
 
     // Triads boxes
-    new ChordBox(triadContainer, 'between c and f', [0.5, 0.25])
-    new ChordBox(triadContainer, 'between f and g', [1, 0.5])
-    new ChordBox(triadContainer, 'between g and c', [0.5, 0.75])
+    new AsymmetricalChordBox(
+        triadContainer,
+        neighbours = [triadCardinalBoxes['C'], triadCardinalBoxes['G']],
+        chordCols = [MAJOR_CHORDS, MINOR_CHORDS].map(chord =>
+            ['C', 'E', 'Ab'].map(n => chord[n])
+        ),
+    );
+    //new AsymmetricalChordBox(triadContainer, [1, 0.5])
+    //new AsymmetricalChordBox(triadContainer, [0.5, 0.75])
 })
