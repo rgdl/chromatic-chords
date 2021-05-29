@@ -1,7 +1,7 @@
 // TODO: because of CORS issues, need to supply over a local server if I want importable modules. This may become necessary if the file grows too much. Rather than the server approach, maybe I could have a transpiling step with webpack?
 // TODO: position with flex box or grid instead?
 const CONTAINER_SIZE = 60;
-const NODE_SIZE = CONTAINER_SIZE / 6;
+const NODE_SIZE = CONTAINER_SIZE / 3;
 
 const NOTE_NAMES = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
 
@@ -149,14 +149,46 @@ class CardinalChordBox extends ChordBox {
  */
 class AsymmetricalChordBox extends ChordBox {
     constructor(container, neighbours, chordCols, chordLinks) {
+        // TODO: implement chordLinks, use them as a basis for more chord distance checking
         console.assert(neighbours.length === 2);
         const position = [0, 1].map(i => (neighbours[0].position[i] + neighbours[1].position[i]) / 2);
         super(container, null, position);
         this.chordCols = chordCols;
         this.checkChordDistances();
+        this.build();
+    }
+
+    build() {
+        const table = document.createElement('table');
+        const tBody = document.createElement('tbody');
+        let i = 0;
+
+        while (true) {
+            const row = document.createElement('tr');
+            let chordFound = false;
+
+            for (const col of this.chordCols) {
+                if (i < col.length) {
+                    const td = document.createElement('td');
+                    td.textContent = col[i].name;
+                    row.appendChild(td);
+                    chordFound = true;
+                }
+            }
+
+            if (!chordFound) {
+                break
+            }
+
+            tBody.appendChild(row);
+            i++;
+        }
+        table.appendChild(tBody);
+        this.node.appendChild(table);
     }
 
     checkChordDistances() {
+        // Correct distances between adjacent chords
         this.chordCols[0].map(chord => assertChordDistanceEquals(neighbours[0].chord, chord, 1));
         for (let i = 1; i < this.chordCols.length; i++) {
             // for each chord in a column there must be at least one chord in the next column whose distance is 1
@@ -196,6 +228,29 @@ document.addEventListener('DOMContentLoaded', function() {
             ['C', 'E', 'Ab'].map(n => chord[n])
         ),
     );
-    //new AsymmetricalChordBox(triadContainer, [1, 0.5])
-    //new AsymmetricalChordBox(triadContainer, [0.5, 0.75])
+
+    new AsymmetricalChordBox(
+        triadContainer,
+        neighbours = [triadCardinalBoxes['D'], triadCardinalBoxes['G']],
+        chordCols = [MINOR_CHORDS, MAJOR_CHORDS].map(chord =>
+            ['G', 'B', 'Eb'].map(n => chord[n])
+        )
+    );
+
+    new AsymmetricalChordBox(
+        triadContainer,
+        neighbours = [triadCardinalBoxes['F'], triadCardinalBoxes['D']],
+        chordCols = [MINOR_CHORDS, MAJOR_CHORDS].map(chord =>
+            ['D', 'Gb', 'Bb'].map(n => chord[n])
+        ),
+    );
+
+    new AsymmetricalChordBox(
+        triadContainer,
+        neighbours = [triadCardinalBoxes['F'], triadCardinalBoxes['C']],
+        chordCols = [MAJOR_CHORDS, MINOR_CHORDS].map(chord =>
+            ['F', 'A', 'Db'].map(n => chord[n])
+        ),
+    );
+
 })
