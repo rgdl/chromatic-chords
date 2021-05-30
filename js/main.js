@@ -1,5 +1,6 @@
 // TODO: because of CORS issues, need to supply over a local server if I want importable modules. This may become necessary if the file grows too much. Rather than the server approach, maybe I could have a transpiling step with webpack?
 // TODO: position with flex box or grid instead?
+// TODO: get webpack, react, less css and refactor
 const CONTAINER_SIZE = 60;
 const NODE_SIZE = CONTAINER_SIZE / 3;
 
@@ -82,6 +83,11 @@ class VisualElement {
     applyStyle(style) {
         Object.keys(style).map(k => this.node.style[k] = style[k]);
     }
+
+    addClass(className) {
+        const cn = this.node.className;
+        this.node.className = cn ? `${cn} ${className}` : `${className}`;
+    }
 }
 
 class ChordSelection extends VisualElement {
@@ -156,6 +162,7 @@ class AsymmetricalChordBox extends ChordBox {
         this.chordCols = chordCols;
         this.checkChordDistances();
         this.build();
+        this.addClass('assymetrical-chord-box');
     }
 
     build() {

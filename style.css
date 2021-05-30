@@ -28,3 +28,17 @@ h1, h2 {
     color: black;
     text-align: center;
 }
+
+.assymetrical-chord-box {
+    border-radius: 50%;
+    display: flex;
+}
+
+.assymetrical-chord-box table {
+    margin: auto;
+}
+
+.assymetrical-chord-box td {
+    white-space: nowrap;
+    margin: 0 10%;
+}
