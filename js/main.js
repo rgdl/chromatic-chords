@@ -90,6 +90,41 @@ class VisualElement {
     }
 }
 
+class ChordLink extends VisualElement {
+    constructor(container, neighbourA, neighbourB) {
+        const node = document.createElement('div')
+        node.className = 'chord-link';
+        document.body.appendChild(node);
+        super(node);
+        this.neighbours = [neighbourA, neighbourB];
+        this.setPosition();
+
+        window.addEventListener('resize', () => this.setPosition());
+    }
+
+    // TODO: use Z-index to put lines behind chord boxes? If so, how would that work inside an assymetrical chord box? Use container Z-index to work it out?
+    setPosition() {
+        const neighbourRects = this.neighbours.map(n => n.node.getBoundingClientRect());
+        const neighbourMidpoints = neighbourRects.map(n => [n.left + n.width / 2, n.top + n.height / 2]);
+
+        const xDiff = neighbourMidpoints[1][0] - neighbourMidpoints[0][0];
+        const yDiff = neighbourMidpoints[1][1] - neighbourMidpoints[0][1];
+
+        const theta = 180 * Math.atan(yDiff / xDiff) / Math.PI;
+        const r = Math.sqrt(xDiff ** 2 + yDiff ** 2);
+
+        const left = (neighbourMidpoints[0][0] + neighbourMidpoints[1][0] - r) / 2;
+        const top = (neighbourMidpoints[0][1] + neighbourMidpoints[1][1]) / 2;
+
+        this.applyStyle({
+            transform: `rotate(${theta}deg)`,
+            width: `${r}px`,
+            left: `${left}px`,
+            top: `${top}px`,
+        });
+    }
+}
+
 class ChordSelection extends VisualElement {
     constructor(node) {
         super(node);
@@ -159,13 +194,17 @@ class AsymmetricalChordBox extends ChordBox {
         console.assert(neighbours.length === 2);
         const position = [0, 1].map(i => (neighbours[0].position[i] + neighbours[1].position[i]) / 2);
         super(container, null, position);
+        this.container = container;
+        this.neighbours = neighbours;
         this.chordCols = chordCols;
-        this.checkChordDistances();
+        this.chordLinks = chordLinks;
+        this.checkChords();
         this.build();
-        this.addClass('assymetrical-chord-box');
+        this.addClass('asymmetrical-chord-box');
     }
 
     build() {
+        // Build table of chords inside box
         const table = document.createElement('table');
         const tBody = document.createElement('tbody');
         let i = 0;
@@ -192,13 +231,16 @@ class AsymmetricalChordBox extends ChordBox {
         }
         table.appendChild(tBody);
         this.node.appendChild(table);
+
+        // Build links to neighbour cardinal chords
+        this.neighbours.map(n => new ChordLink(this.container, this, n));
     }
 
-    checkChordDistances() {
+    checkChords() {
         // Correct distances between adjacent chords
         this.chordCols[0].map(chord => assertChordDistanceEquals(neighbours[0].chord, chord, 1));
         for (let i = 1; i < this.chordCols.length; i++) {
-            // for each chord in a column there must be at least one chord in the next column whose distance is 1
+            // For each chord in a column there must be at least one chord in the next column whose distance is 1
             const colBefore = this.chordCols[i - 1];
             const colAfter = this.chordCols[i];
             for (const chord of colBefore) {

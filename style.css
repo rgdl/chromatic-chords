@@ -9,7 +9,6 @@ h1, h2 {
 }
 
 #triad-container {
-    border: 1px solid red;
     margin: auto;
     display: none;  /* Override once display setup is complete */
     position: relative;
@@ -29,16 +28,22 @@ h1, h2 {
     text-align: center;
 }
 
-.assymetrical-chord-box {
+.asymmetrical-chord-box {
     border-radius: 50%;
     display: flex;
 }
 
-.assymetrical-chord-box table {
+.asymmetrical-chord-box table {
     margin: auto;
 }
 
-.assymetrical-chord-box td {
+.asymmetrical-chord-box td {
     white-space: nowrap;
     margin: 0 10%;
+}
+
+.chord-link {
+    height: 0;
+    border: 1px solid darkred;
+    position: absolute;
 }
