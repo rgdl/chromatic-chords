@@ -3,6 +3,7 @@
 // TODO: get webpack, react, less css and refactor
 const CONTAINER_SIZE = 60;
 const NODE_SIZE = CONTAINER_SIZE / 3;
+const CHORD_BOX_Z_INDEX= 1;
 
 const NOTE_NAMES = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
 
@@ -91,20 +92,19 @@ class VisualElement {
 }
 
 class ChordLink extends VisualElement {
-    constructor(container, neighbourA, neighbourB) {
+    constructor(neighbourA, neighbourB, behindBoxes = false) {
         const node = document.createElement('div')
         node.className = 'chord-link';
         document.body.appendChild(node);
-        super(node);
+        super(node, { zIndex: CHORD_BOX_Z_INDEX + (behindBoxes ? -1 : 1)});
         this.neighbours = [neighbourA, neighbourB];
         this.setPosition();
 
         window.addEventListener('resize', () => this.setPosition());
     }
 
-    // TODO: use Z-index to put lines behind chord boxes? If so, how would that work inside an assymetrical chord box? Use container Z-index to work it out?
     setPosition() {
-        const neighbourRects = this.neighbours.map(n => n.node.getBoundingClientRect());
+        const neighbourRects = this.neighbours.map(n => n.getBoundingClientRect());
         const neighbourMidpoints = neighbourRects.map(n => [n.left + n.width / 2, n.top + n.height / 2]);
 
         const xDiff = neighbourMidpoints[1][0] - neighbourMidpoints[0][0];
@@ -163,6 +163,7 @@ class ChordBox extends VisualElement {
             {
                 width: `${NODE_SIZE}%`, left: `${position[1] * 100 - NODE_SIZE / 2}%`,
                 height: `${NODE_SIZE}%`, top: `${position[0] * 100 - NODE_SIZE / 2}%`,
+                zIndex: CHORD_BOX_Z_INDEX,
             },
         );
         this.position = position;
@@ -207,16 +208,22 @@ class AsymmetricalChordBox extends ChordBox {
         // Build table of chords inside box
         const table = document.createElement('table');
         const tBody = document.createElement('tbody');
-        let i = 0;
 
+        // Keep track of DOM elements corresponding to chords in this box
+        const chordLookup = {};
+
+        let i = 0;
         while (true) {
             const row = document.createElement('tr');
             let chordFound = false;
 
             for (const col of this.chordCols) {
                 if (i < col.length) {
+                    const chord = col[i];
                     const td = document.createElement('td');
-                    td.textContent = col[i].name;
+                    console.assert(!Object.keys(chordLookup).includes(chord.name));
+                    chordLookup[chord.name] = td;
+                    td.textContent = chord.name;
                     row.appendChild(td);
                     chordFound = true;
                 }
@@ -233,7 +240,10 @@ class AsymmetricalChordBox extends ChordBox {
         this.node.appendChild(table);
 
         // Build links to neighbour cardinal chords
-        this.neighbours.map(n => new ChordLink(this.container, this, n));
+        this.neighbours.map(n => new ChordLink(this.node, n.node, true));
+
+        // Build links between chords within AssymetricalChordBox
+        this.chordLinks.map(n => new ChordLink(chordLookup[n[0].name], chordLookup[n[1].name]));
     }
 
     checkChords() {
@@ -276,6 +286,14 @@ document.addEventListener('DOMContentLoaded', function() {
         chordCols = [MAJOR_CHORDS, MINOR_CHORDS].map(chord =>
             ['C', 'E', 'Ab'].map(n => chord[n])
         ),
+        chordLinks=[
+            [MAJOR_CHORDS['C'], MINOR_CHORDS['C']],
+            [MAJOR_CHORDS['C'], MINOR_CHORDS['E']],
+            [MAJOR_CHORDS['E'], MINOR_CHORDS['E']],
+            [MAJOR_CHORDS['E'], MINOR_CHORDS['Ab']],
+            [MAJOR_CHORDS['Ab'], MINOR_CHORDS['Ab']],
+            [MAJOR_CHORDS['Ab'], MINOR_CHORDS['C']],
+        ],
     );
 
     new AsymmetricalChordBox(
@@ -283,7 +301,15 @@ document.addEventListener('DOMContentLoaded', function() {
         neighbours = [triadCardinalBoxes['D'], triadCardinalBoxes['G']],
         chordCols = [MINOR_CHORDS, MAJOR_CHORDS].map(chord =>
             ['G', 'B', 'Eb'].map(n => chord[n])
-        )
+        ),
+        chordLinks=[
+            [MAJOR_CHORDS['G'], MINOR_CHORDS['G']],
+            [MAJOR_CHORDS['G'], MINOR_CHORDS['B']],
+            [MAJOR_CHORDS['B'], MINOR_CHORDS['B']],
+            [MAJOR_CHORDS['B'], MINOR_CHORDS['Eb']],
+            [MAJOR_CHORDS['Eb'], MINOR_CHORDS['Eb']],
+            [MAJOR_CHORDS['Eb'], MINOR_CHORDS['G']],
+        ],
     );
 
     new AsymmetricalChordBox(
@@ -292,6 +318,14 @@ document.addEventListener('DOMContentLoaded', function() {
         chordCols = [MINOR_CHORDS, MAJOR_CHORDS].map(chord =>
             ['D', 'Gb', 'Bb'].map(n => chord[n])
         ),
+        chordLinks=[
+            [MAJOR_CHORDS['D'], MINOR_CHORDS['D']],
+            [MAJOR_CHORDS['D'], MINOR_CHORDS['Gb']],
+            [MAJOR_CHORDS['Gb'], MINOR_CHORDS['Gb']],
+            [MAJOR_CHORDS['Gb'], MINOR_CHORDS['Bb']],
+            [MAJOR_CHORDS['Bb'], MINOR_CHORDS['Bb']],
+            [MAJOR_CHORDS['Bb'], MINOR_CHORDS['D']],
+        ],
     );
 
     new AsymmetricalChordBox(
@@ -300,6 +334,14 @@ document.addEventListener('DOMContentLoaded', function() {
         chordCols = [MAJOR_CHORDS, MINOR_CHORDS].map(chord =>
             ['F', 'A', 'Db'].map(n => chord[n])
         ),
+        chordLinks=[
+            [MAJOR_CHORDS['F'], MINOR_CHORDS['F']],
+            [MAJOR_CHORDS['F'], MINOR_CHORDS['A']],
+            [MAJOR_CHORDS['A'], MINOR_CHORDS['A']],
+            [MAJOR_CHORDS['A'], MINOR_CHORDS['Db']],
+            [MAJOR_CHORDS['Db'], MINOR_CHORDS['Db']],
+            [MAJOR_CHORDS['Db'], MINOR_CHORDS['F']],
+        ],
     );
 
 })
