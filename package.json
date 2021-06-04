@@ -1,0 +1,25 @@
+{
+  "name": "chromatic-chords",
+  "version": "1.0.0",
+  "description": "Diagram to help work out smooth chromatic chord sequences",
+  "main": "webpack.config.js",
+  "dependencies": {
+    "webpack": "^5.38.1"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.7.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rgdl/chromatic-chords.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rgdl/chromatic-chords/issues"
+  },
+  "homepage": "https://github.com/rgdl/chromatic-chords#readme"
+}
