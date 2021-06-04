@@ -10,5 +10,5 @@ npx webpack
 
 Find TODOs:
 ```bash
-grep . -rine todo --exclude-dir node_modules --exclude-dir dist --exclude-dir .gi
+grep . -rine todo --exclude-dir node_modules --exclude-dir dist --exclude-dir .git
 ```
