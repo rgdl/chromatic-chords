@@ -1,4 +1,3 @@
-// TODO: because of CORS issues, need to supply over a local server if I want importable modules. This may become necessary if the file grows too much. Rather than the server approach, maybe I could have a transpiling step with webpack?
 // TODO: position with flex box or grid instead?
 // TODO: get webpack, react, less css and refactor
 const CONTAINER_SIZE = 60;
@@ -191,7 +190,6 @@ class CardinalChordBox extends ChordBox {
  */
 class AsymmetricalChordBox extends ChordBox {
     constructor(container, neighbours, chordCols, chordLinks) {
-        // TODO: implement chordLinks, use them as a basis for more chord distance checking
         console.assert(neighbours.length === 2);
         const position = [0, 1].map(i => (neighbours[0].position[i] + neighbours[1].position[i]) / 2);
         super(container, null, position);
@@ -259,6 +257,11 @@ class AsymmetricalChordBox extends ChordBox {
             }
         }
         this.chordCols[this.chordCols.length - 1].map(chord => assertChordDistanceEquals(neighbours[1].chord, chord, 1));
+
+        // Correct distances bewteen linked chords
+        for (let chords of this.chordLinks) {
+            console.assert(chords[0].distance(chords[1]));
+        }
     }
 }
 
