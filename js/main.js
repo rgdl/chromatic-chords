@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom';
 
 import { AUG_TRIADS, MAJOR_CHORDS, MINOR_CHORDS } from './chords.js';
 import { ChordContainer } from './visualElements.js';
-import { AsymmetricalChordBox, CardinalChordBox } from './chordBox.js';
+import { AsymmetricalChordBox } from './chordBox.js';
 
-import React_CardinalChordBox from './components/CardinalChordBox.js';
+import CardinalChordBox from './components/CardinalChordBox.js';
 import ReactProofOfConcept from './components/reactProofOfConcept.js';
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -25,35 +25,35 @@ document.addEventListener('DOMContentLoaded', function() {
     rccb = document.createElement('div');
     triadContainer.node.appendChild(rccb);
     ReactDOM.render(
-        <React_CardinalChordBox x={0.5} y={0} text="C augmented" chord={AUG_TRIADS['C']} />,
+        <CardinalChordBox x={0.5} y={0} text="C augmented" chord={AUG_TRIADS['C']} />,
         rccb,
     );
 
     rccb = document.createElement('div');
     triadContainer.node.appendChild(rccb);
     ReactDOM.render(
-        <React_CardinalChordBox x={0} y={0.5} text="F augmented" chord={AUG_TRIADS['F']} />,
+        <CardinalChordBox x={0} y={0.5} text="F augmented" chord={AUG_TRIADS['F']} />,
         rccb,
     );
 
     rccb = document.createElement('div');
     triadContainer.node.appendChild(rccb);
     ReactDOM.render(
-        <React_CardinalChordBox x={1} y={0.5} text="D augmented" chord={AUG_TRIADS['D']} />,
+        <CardinalChordBox x={1} y={0.5} text="D augmented" chord={AUG_TRIADS['D']} />,
         rccb,
     );
 
     rccb = document.createElement('div');
     triadContainer.node.appendChild(rccb);
     ReactDOM.render(
-        <React_CardinalChordBox x={0.5} y={1} text="G augmented" chord={AUG_TRIADS['G']} />,
+        <CardinalChordBox x={0.5} y={1} text="G augmented" chord={AUG_TRIADS['G']} />,
         rccb,
     );
 
     // Triads boxes
     new AsymmetricalChordBox(
         triadContainer,
-        [triadCardinalBoxes['C'], triadCardinalBoxes['G']],
+        [AUG_TRIADS['C'], AUG_TRIADS['G']],
         [MAJOR_CHORDS, MINOR_CHORDS].map(chord =>
             ['C', 'E', 'Ab'].map(n => chord[n])
         ),
@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     new AsymmetricalChordBox(
         triadContainer,
-        [triadCardinalBoxes['D'], triadCardinalBoxes['G']],
+        [AUG_TRIADS['D'], AUG_TRIADS['G']],
         [MINOR_CHORDS, MAJOR_CHORDS].map(chord =>
             ['G', 'B', 'Eb'].map(n => chord[n])
         ),
@@ -85,7 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     new AsymmetricalChordBox(
         triadContainer,
-        [triadCardinalBoxes['F'], triadCardinalBoxes['D']],
+        [AUG_TRIADS['F'], AUG_TRIADS['D']],
         [MINOR_CHORDS, MAJOR_CHORDS].map(chord =>
             ['D', 'Gb', 'Bb'].map(n => chord[n])
         ),
@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     new AsymmetricalChordBox(
         triadContainer,
-        [triadCardinalBoxes['F'], triadCardinalBoxes['C']],
+        [AUG_TRIADS['F'], AUG_TRIADS['C']],
         [MAJOR_CHORDS, MINOR_CHORDS].map(chord =>
             ['F', 'A', 'Db'].map(n => chord[n])
         ),

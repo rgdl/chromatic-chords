@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
-import { CHORD_BOX_Z_INDEX, NODE_SIZE } from '../consts.js'
+import { CHORD_BOX_Z_INDEX, NODE_SIZE } from '../consts.js';
 
 
 // TODO: if there's no need for state, make this a functional component
@@ -12,7 +13,7 @@ export default class CardinalChordBox extends React.Component {
     }
 
     render() {
-        // TODO: ensure we're only running this when props change
+        // TODO: ensure we're only running this when props change?
         this.validate();
 
         return (
@@ -29,3 +30,9 @@ export default class CardinalChordBox extends React.Component {
         );
     }
 }
+
+CardinalChordBox.propTypes = {
+    x: PropTypes.number.isRequired,
+    y: PropTypes.number.isRequired,
+    text: PropTypes.string.isRequired,
+};

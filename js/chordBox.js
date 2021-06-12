@@ -30,16 +30,6 @@ class ChordBox extends VisualElement {
 }
 
 /**
- * A symmetrical chord (augmented triad or diminished seventh)
- */
-export class CardinalChordBox extends ChordBox {
-    constructor(container, text, chord, position) {
-        super(container, text, position);
-        this.chord = chord;
-    }
-}
-
-/**
  * A collection of asymettrical chords (e.g. major triads, dominant sevenths)
  */
 export class AsymmetricalChordBox extends ChordBox {
