@@ -5,8 +5,8 @@ import { AUG_TRIADS, MAJOR_CHORDS, MINOR_CHORDS } from './chords.js';
 import { ChordContainer } from './visualElements.js';
 import { AsymmetricalChordBox, CardinalChordBox } from './chordBox.js';
 
+import React_CardinalChordBox from './components/CardinalChordBox.js';
 import ReactProofOfConcept from './components/reactProofOfConcept.js';
-
 
 document.addEventListener('DOMContentLoaded', function() {
     const triadContainer = new ChordContainer(
@@ -19,11 +19,35 @@ document.addEventListener('DOMContentLoaded', function() {
     //);
 
     // Cardinal boxes
-    const cardinalBoxPositions = [[0, 0.5], [0.5, 0], [1, 0.5], [0.5, 1]];
-    const triadCardinalBoxes = Object.fromEntries(
-        ['C', 'F', 'D', 'G'].map((n, i) => [
-            n, new CardinalChordBox(triadContainer, `${n} augmented`, AUG_TRIADS[n], cardinalBoxPositions[i])
-        ])
+
+    let rccb;
+
+    rccb = document.createElement('div');
+    triadContainer.node.appendChild(rccb);
+    ReactDOM.render(
+        <React_CardinalChordBox x={0.5} y={0} text="C augmented" chord={AUG_TRIADS['C']} />,
+        rccb,
+    );
+
+    rccb = document.createElement('div');
+    triadContainer.node.appendChild(rccb);
+    ReactDOM.render(
+        <React_CardinalChordBox x={0} y={0.5} text="F augmented" chord={AUG_TRIADS['F']} />,
+        rccb,
+    );
+
+    rccb = document.createElement('div');
+    triadContainer.node.appendChild(rccb);
+    ReactDOM.render(
+        <React_CardinalChordBox x={1} y={0.5} text="D augmented" chord={AUG_TRIADS['D']} />,
+        rccb,
+    );
+
+    rccb = document.createElement('div');
+    triadContainer.node.appendChild(rccb);
+    ReactDOM.render(
+        <React_CardinalChordBox x={0.5} y={1} text="G augmented" chord={AUG_TRIADS['G']} />,
+        rccb,
     );
 
     // Triads boxes
