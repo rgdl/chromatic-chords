@@ -1,6 +1,11 @@
+import React from 'react';
+import ReactDOM from 'react-dom';
+
 import { AUG_TRIADS, MAJOR_CHORDS, MINOR_CHORDS } from './chords.js';
 import { ChordContainer } from './visualElements.js';
 import { AsymmetricalChordBox, CardinalChordBox } from './chordBox.js';
+
+import ReactProofOfConcept from './components/reactProofOfConcept.js';
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -86,4 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ],
     );
 
+    const domContainer = document.querySelector('#react-proof-of-concept');
+    // TODO: replace UI objects with React components one by one, until I'm ready to put the whole thing inside <App/>
+    ReactDOM.render(<ReactProofOfConcept/>, domContainer);
 });

@@ -4,7 +4,8 @@
         "es2021": true
     },
     "extends": [
-        "eslint:recommended"
+        "eslint:recommended",
+        "plugin:react/recommended"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -27,5 +28,10 @@
             "error",
             "always"
         ]
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
     }
 }
