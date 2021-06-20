@@ -1,6 +1,6 @@
 const NOTE_NAMES = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
 
-class Chord {
+export default class Chord {
     constructor(name, notes) {
         this.name = name;
         this.notes = notes;

@@ -6,17 +6,13 @@ import { ChordContainer } from './visualElements.js';
 import { AsymmetricalChordBox } from './chordBox.js';
 
 import CardinalChordBox from './components/CardinalChordBox.js';
-import ReactProofOfConcept from './components/reactProofOfConcept.js';
+import React_AsymmetricalChordBox from './components/AsymmetricalChordBox.js';
+
 
 document.addEventListener('DOMContentLoaded', function() {
     const triadContainer = new ChordContainer(
         document.getElementById("triad-container")
     );
-
-    // TODO: uncomment once it does something
-    //const triadSelection = new ChordSelection(
-    //    document.getElementById("triad-selection")
-    //);
 
     // Cardinal boxes
 
@@ -25,97 +21,123 @@ document.addEventListener('DOMContentLoaded', function() {
     rccb = document.createElement('div');
     triadContainer.node.appendChild(rccb);
     ReactDOM.render(
-        <CardinalChordBox x={0.5} y={0} text="C augmented" chord={AUG_TRIADS['C']} />,
+        <CardinalChordBox theta={3 * Math.PI / 2} chord={AUG_TRIADS['C']} />,
         rccb,
     );
 
     rccb = document.createElement('div');
     triadContainer.node.appendChild(rccb);
     ReactDOM.render(
-        <CardinalChordBox x={0} y={0.5} text="F augmented" chord={AUG_TRIADS['F']} />,
+        <CardinalChordBox theta={Math.PI} chord={AUG_TRIADS['F']} />,
         rccb,
     );
 
     rccb = document.createElement('div');
     triadContainer.node.appendChild(rccb);
     ReactDOM.render(
-        <CardinalChordBox x={1} y={0.5} text="D augmented" chord={AUG_TRIADS['D']} />,
+        <CardinalChordBox theta={Math.PI / 2} chord={AUG_TRIADS['D']} />,
         rccb,
     );
 
     rccb = document.createElement('div');
     triadContainer.node.appendChild(rccb);
     ReactDOM.render(
-        <CardinalChordBox x={0.5} y={1} text="G augmented" chord={AUG_TRIADS['G']} />,
+        <CardinalChordBox theta={0} chord={AUG_TRIADS['G']} />,
         rccb,
     );
 
     // Triads boxes
-    new AsymmetricalChordBox(
-        triadContainer,
-        [AUG_TRIADS['C'], AUG_TRIADS['G']],
-        [MAJOR_CHORDS, MINOR_CHORDS].map(chord =>
-            ['C', 'E', 'Ab'].map(n => chord[n])
-        ),
-        [
-            [MAJOR_CHORDS['C'], MINOR_CHORDS['C']],
-            [MAJOR_CHORDS['C'], MINOR_CHORDS['E']],
-            [MAJOR_CHORDS['E'], MINOR_CHORDS['E']],
-            [MAJOR_CHORDS['E'], MINOR_CHORDS['Ab']],
-            [MAJOR_CHORDS['Ab'], MINOR_CHORDS['Ab']],
-            [MAJOR_CHORDS['Ab'], MINOR_CHORDS['C']],
-        ],
+    let racb;
+
+    // TODO: at the App level, invoke service functions to validate the relationships between chords
+    // TODO: how will the chordlinks work?
+
+    racb = document.createElement('div');
+    triadContainer.node.appendChild(racb);
+    ReactDOM.render(
+        <React_AsymmetricalChordBox
+            theta={7 * Math.PI / 4}
+            chordCols={
+                [MAJOR_CHORDS, MINOR_CHORDS].map(chord =>
+                    ['C', 'E', 'Ab'].map(n => chord[n])
+                )
+            }
+            chordLinks={[
+                [MAJOR_CHORDS['C'], MINOR_CHORDS['C']],
+                [MAJOR_CHORDS['C'], MINOR_CHORDS['E']],
+                [MAJOR_CHORDS['E'], MINOR_CHORDS['E']],
+                [MAJOR_CHORDS['E'], MINOR_CHORDS['Ab']],
+                [MAJOR_CHORDS['Ab'], MINOR_CHORDS['Ab']],
+                [MAJOR_CHORDS['Ab'], MINOR_CHORDS['C']],
+            ]}
+        />,
+        racb,
     );
 
-    new AsymmetricalChordBox(
-        triadContainer,
-        [AUG_TRIADS['D'], AUG_TRIADS['G']],
-        [MINOR_CHORDS, MAJOR_CHORDS].map(chord =>
-            ['G', 'B', 'Eb'].map(n => chord[n])
-        ),
-        [
-            [MAJOR_CHORDS['G'], MINOR_CHORDS['G']],
-            [MAJOR_CHORDS['G'], MINOR_CHORDS['B']],
-            [MAJOR_CHORDS['B'], MINOR_CHORDS['B']],
-            [MAJOR_CHORDS['B'], MINOR_CHORDS['Eb']],
-            [MAJOR_CHORDS['Eb'], MINOR_CHORDS['Eb']],
-            [MAJOR_CHORDS['Eb'], MINOR_CHORDS['G']],
-        ],
+    racb = document.createElement('div');
+    triadContainer.node.appendChild(racb);
+    ReactDOM.render(
+        <React_AsymmetricalChordBox
+            theta={1 * Math.PI / 4}
+            chordCols={
+                [MINOR_CHORDS, MAJOR_CHORDS].map(chord =>
+                    ['G', 'B', 'Eb'].map(n => chord[n])
+                )
+            }
+            chordLinks={[
+                [MAJOR_CHORDS['G'], MINOR_CHORDS['G']],
+                [MAJOR_CHORDS['G'], MINOR_CHORDS['B']],
+                [MAJOR_CHORDS['B'], MINOR_CHORDS['B']],
+                [MAJOR_CHORDS['B'], MINOR_CHORDS['Eb']],
+                [MAJOR_CHORDS['Eb'], MINOR_CHORDS['Eb']],
+                [MAJOR_CHORDS['Eb'], MINOR_CHORDS['G']],
+            ]}
+        />,
+        racb,
     );
 
-    new AsymmetricalChordBox(
-        triadContainer,
-        [AUG_TRIADS['F'], AUG_TRIADS['D']],
-        [MINOR_CHORDS, MAJOR_CHORDS].map(chord =>
-            ['D', 'Gb', 'Bb'].map(n => chord[n])
-        ),
-        [
-            [MAJOR_CHORDS['D'], MINOR_CHORDS['D']],
-            [MAJOR_CHORDS['D'], MINOR_CHORDS['Gb']],
-            [MAJOR_CHORDS['Gb'], MINOR_CHORDS['Gb']],
-            [MAJOR_CHORDS['Gb'], MINOR_CHORDS['Bb']],
-            [MAJOR_CHORDS['Bb'], MINOR_CHORDS['Bb']],
-            [MAJOR_CHORDS['Bb'], MINOR_CHORDS['D']],
-        ],
+    racb = document.createElement('div');
+    triadContainer.node.appendChild(racb);
+    ReactDOM.render(
+        <React_AsymmetricalChordBox
+            theta={3 * Math.PI / 4}
+            chordCols={
+                [MINOR_CHORDS, MAJOR_CHORDS].map(chord =>
+                    ['D', 'Gb', 'Bb'].map(n => chord[n])
+                )
+            }
+            chordLinks={[
+                [MAJOR_CHORDS['D'], MINOR_CHORDS['D']],
+                [MAJOR_CHORDS['D'], MINOR_CHORDS['Gb']],
+                [MAJOR_CHORDS['Gb'], MINOR_CHORDS['Gb']],
+                [MAJOR_CHORDS['Gb'], MINOR_CHORDS['Bb']],
+                [MAJOR_CHORDS['Bb'], MINOR_CHORDS['Bb']],
+                [MAJOR_CHORDS['Bb'], MINOR_CHORDS['D']],
+            ]}
+        />,
+        racb,
     );
 
-    new AsymmetricalChordBox(
-        triadContainer,
-        [AUG_TRIADS['F'], AUG_TRIADS['C']],
-        [MAJOR_CHORDS, MINOR_CHORDS].map(chord =>
-            ['F', 'A', 'Db'].map(n => chord[n])
-        ),
-        [
-            [MAJOR_CHORDS['F'], MINOR_CHORDS['F']],
-            [MAJOR_CHORDS['F'], MINOR_CHORDS['A']],
-            [MAJOR_CHORDS['A'], MINOR_CHORDS['A']],
-            [MAJOR_CHORDS['A'], MINOR_CHORDS['Db']],
-            [MAJOR_CHORDS['Db'], MINOR_CHORDS['Db']],
-            [MAJOR_CHORDS['Db'], MINOR_CHORDS['F']],
-        ],
+    racb = document.createElement('div');
+    triadContainer.node.appendChild(racb);
+    ReactDOM.render(
+        <React_AsymmetricalChordBox
+            theta={5 * Math.PI / 4}
+            chordCols={
+                [MAJOR_CHORDS, MINOR_CHORDS].map(chord =>
+                    ['F', 'A', 'Db'].map(n => chord[n])
+                )
+            }
+            chordLinks={[
+                [MAJOR_CHORDS['F'], MINOR_CHORDS['F']],
+                [MAJOR_CHORDS['F'], MINOR_CHORDS['A']],
+                [MAJOR_CHORDS['A'], MINOR_CHORDS['A']],
+                [MAJOR_CHORDS['A'], MINOR_CHORDS['Db']],
+                [MAJOR_CHORDS['Db'], MINOR_CHORDS['Db']],
+                [MAJOR_CHORDS['Db'], MINOR_CHORDS['F']],
+            ]}
+        />,
+        racb,
     );
 
-    const domContainer = document.querySelector('#react-proof-of-concept');
-    // TODO: replace UI objects with React components one by one, until I'm ready to put the whole thing inside <App/>
-    ReactDOM.render(<ReactProofOfConcept/>, domContainer);
 });
