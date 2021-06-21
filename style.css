@@ -1,4 +1,4 @@
-html, body {
+html, body, #root {
     background-image: linear-gradient(to bottom, darkblue, black);
     color: ivory;
     height: 100%;
@@ -10,7 +10,6 @@ h1, h2 {
 
 #triad-container {
     margin: auto;
-    display: none;  /* Override once display setup is complete */
     position: relative;
 }
 
