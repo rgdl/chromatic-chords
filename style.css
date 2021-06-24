@@ -8,7 +8,7 @@ h1, h2 {
     text-align: center;
 }
 
-#triad-container {
+.triad-container {
     margin: auto;
     position: relative;
 }

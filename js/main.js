@@ -21,7 +21,6 @@ class App extends React.Component {
 					style={{
 						width: `${CONTAINER_SIZE}%`, height: `${CONTAINER_SIZE}%`,
 						marginTop: `${NODE_SIZE / 2}%`,  marginBottom: `${NODE_SIZE / 2}%`,
-						position: 'relative'
 					}}
 				>
 					<CardinalChordBox theta={3 * Math.PI / 2} chord={AUG_TRIADS['C']} />
