@@ -9,6 +9,10 @@ import CardinalChordBox from './components/CardinalChordBox.js';
 import { CONTAINER_SIZE, NODE_SIZE } from './consts.js';
 
 
+// TODO: eventually should have index.js instead of index.html
+// TODO: what else needs to be moved from vanilla javascript to react?
+// TODO: draw chordlinks somehow!
+
 class App extends React.Component {
     render() {
         return (
