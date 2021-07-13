@@ -28,10 +28,6 @@ class App extends React.Component {
 					}}
 				>
 					<CardinalChordBox theta={3 * Math.PI / 2} chord={AUG_TRIADS['C']} />
-					<CardinalChordBox theta={Math.PI} chord={AUG_TRIADS['F']} />
-					<CardinalChordBox theta={Math.PI / 2} chord={AUG_TRIADS['D']} />
-					<CardinalChordBox theta={0} chord={AUG_TRIADS['G']} />
-
 					<AsymmetricalChordBox
 						theta={7 * Math.PI / 4}
 						chordCols={
@@ -43,6 +39,7 @@ class App extends React.Component {
 							[MAJOR_CHORDS['Ab'], MINOR_CHORDS['Ab']], [MAJOR_CHORDS['Ab'], MINOR_CHORDS['C']],
 						]}
 					/>
+					<CardinalChordBox theta={0} chord={AUG_TRIADS['G']} />
 					<AsymmetricalChordBox
 						theta={1 * Math.PI / 4}
 						chordCols={
@@ -54,6 +51,7 @@ class App extends React.Component {
 							[MAJOR_CHORDS['Eb'], MINOR_CHORDS['Eb']], [MAJOR_CHORDS['Eb'], MINOR_CHORDS['G']],
 						]}
 					/>
+					<CardinalChordBox theta={Math.PI / 2} chord={AUG_TRIADS['D']} />
 					<AsymmetricalChordBox
 						theta={3 * Math.PI / 4}
 						chordCols={
@@ -65,6 +63,7 @@ class App extends React.Component {
 							[MAJOR_CHORDS['Bb'], MINOR_CHORDS['Bb']], [MAJOR_CHORDS['Bb'], MINOR_CHORDS['D']],
 						]}
 					/>
+					<CardinalChordBox theta={Math.PI} chord={AUG_TRIADS['F']} />
 					<AsymmetricalChordBox
 						theta={5 * Math.PI / 4}
 						chordCols={

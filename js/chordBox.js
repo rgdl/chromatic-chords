@@ -93,21 +93,8 @@ export class AsymmetricalChordBox extends ChordBox {
     checkChords() {
         // Correct distances between adjacent chords
         this.chordCols[0].map(chord => assertChordDistanceEquals(this.neighbours[0].chord, chord, 1));
-        for (let i = 1; i < this.chordCols.length; i++) {
-            // For each chord in a column there must be at least one chord in the next column whose distance is 1
-            const colBefore = this.chordCols[i - 1];
-            const colAfter = this.chordCols[i];
-            for (const chord of colBefore) {
-                const minDist = Math.min(...colAfter.map(c => chord.distance(c)));
-                console.assert(minDist === 1);
-            }
-        }
         this.chordCols[this.chordCols.length - 1].map(chord => assertChordDistanceEquals(this.neighbours[1].chord, chord, 1));
 
-        // Correct distances bewteen linked chords
-        for (let chords of this.chordLinks) {
-            console.assert(chords[0].distance(chords[1]));
-        }
     }
 }
 
