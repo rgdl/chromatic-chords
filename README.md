@@ -15,5 +15,5 @@ fswatch -or . | xargs -n1 -I{} npx webpack
 
 Find TODOs:
 ```bash
-grep . -rine todo --exclude-dir={node_modules,dist}
+grep . -Irine todo --exclude-dir={node_modules,dist,.git} --exclude README.md
 ```

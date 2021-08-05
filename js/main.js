@@ -11,7 +11,6 @@ import { CONTAINER_SIZE, NODE_SIZE } from './consts.js';
 
 // TODO: eventually should have index.js instead of index.html
 // TODO: what else needs to be moved from vanilla javascript to react?
-// TODO: draw chordlinks somehow!
 
 class App extends React.Component {
     render() {
@@ -34,9 +33,9 @@ class App extends React.Component {
 							[MAJOR_CHORDS, MINOR_CHORDS].map(chord => ['C', 'E', 'Ab'].map(n => chord[n]))
 						}
 						chordLinks={[
-							[MAJOR_CHORDS['C'], MINOR_CHORDS['C']], [MAJOR_CHORDS['C'], MINOR_CHORDS['E']],
-							[MAJOR_CHORDS['E'], MINOR_CHORDS['E']], [MAJOR_CHORDS['E'], MINOR_CHORDS['Ab']],
-							[MAJOR_CHORDS['Ab'], MINOR_CHORDS['Ab']], [MAJOR_CHORDS['Ab'], MINOR_CHORDS['C']],
+							[MINOR_CHORDS['C'], MAJOR_CHORDS['C']], [MINOR_CHORDS['E'], MAJOR_CHORDS['C']],
+							[MINOR_CHORDS['E'], MAJOR_CHORDS['E']], [MINOR_CHORDS['Ab'], MAJOR_CHORDS['E']],
+							[MINOR_CHORDS['Ab'], MAJOR_CHORDS['Ab']], [MINOR_CHORDS['C'], MAJOR_CHORDS['Ab']],
 						]}
 					/>
 					<CardinalChordBox theta={0} chord={AUG_TRIADS['G']} />
@@ -70,9 +69,9 @@ class App extends React.Component {
 							[MAJOR_CHORDS, MINOR_CHORDS].map(chord => ['F', 'A', 'Db'].map(n => chord[n]))
 						}
 						chordLinks={[
-							[MAJOR_CHORDS['F'], MINOR_CHORDS['F']], [MAJOR_CHORDS['F'], MINOR_CHORDS['A']],
-							[MAJOR_CHORDS['A'], MINOR_CHORDS['A']], [MAJOR_CHORDS['A'], MINOR_CHORDS['Db']],
-							[MAJOR_CHORDS['Db'], MINOR_CHORDS['Db']], [MAJOR_CHORDS['Db'], MINOR_CHORDS['F']],
+							[MINOR_CHORDS['F'], MAJOR_CHORDS['F']], [MINOR_CHORDS['A'], MAJOR_CHORDS['F']],
+							[MINOR_CHORDS['A'], MAJOR_CHORDS['A']], [MINOR_CHORDS['Db'], MAJOR_CHORDS['A']],
+							[MINOR_CHORDS['Db'], MAJOR_CHORDS['Db']], [MINOR_CHORDS['F'], MAJOR_CHORDS['Db']],
 						]}
 					/>
 				</div>
