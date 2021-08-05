@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { AUG_TRIADS, MAJOR_CHORDS, MINOR_CHORDS } from './chords.js';
-import { ChordContainer } from './visualElements.js';
+import { AUG_TRIADS, MAJOR_CHORDS, MINOR_CHORDS, assertChordDistanceEquals } from './chords.js';
 
 import AsymmetricalChordBox from './components/AsymmetricalChordBox.js';
 import CardinalChordBox from './components/CardinalChordBox.js';
@@ -10,12 +9,6 @@ import { CONTAINER_SIZE, NODE_SIZE } from './consts.js';
 
 
 // TODO: eventually should have index.js instead of index.html
-// TODO: what else needs to be moved from vanilla javascript to react?
-
-function assertChromaticNeighbour(chord, otherChords) {
-    const allDistances = otherChords.map(c => c.distance(chord));
-    console.assert(Math.min(...allDistances) === 1, `Failed for ${chord.name} and ${otherChords.map(c => c.name)}`);
-}
 
 const chordsBetweenCAndG = [MAJOR_CHORDS, MINOR_CHORDS].map(chord => ['C', 'E', 'Ab'].map(n => chord[n]));
 const chordLinksBetweenCAndG = [
@@ -23,8 +16,8 @@ const chordLinksBetweenCAndG = [
     [MINOR_CHORDS['E'], MAJOR_CHORDS['E']], [MINOR_CHORDS['Ab'], MAJOR_CHORDS['E']],
     [MINOR_CHORDS['Ab'], MAJOR_CHORDS['Ab']], [MINOR_CHORDS['C'], MAJOR_CHORDS['Ab']],
 ];
-assertChromaticNeighbour(AUG_TRIADS['C'], chordsBetweenCAndG[0]);
-assertChromaticNeighbour(AUG_TRIADS['G'], chordsBetweenCAndG[1]);
+chordsBetweenCAndG[0].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['C'], 1));
+chordsBetweenCAndG[1].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['G'], 1));
 
 const chordsBetweenGAndD = [MINOR_CHORDS, MAJOR_CHORDS].map(chord => ['G', 'B', 'Eb'].map(n => chord[n]));
 const chordLinksBetweenGAndD = [
@@ -32,8 +25,8 @@ const chordLinksBetweenGAndD = [
     [MAJOR_CHORDS['B'], MINOR_CHORDS['B']], [MAJOR_CHORDS['B'], MINOR_CHORDS['Eb']],
     [MAJOR_CHORDS['Eb'], MINOR_CHORDS['Eb']], [MAJOR_CHORDS['Eb'], MINOR_CHORDS['G']],
 ];
-assertChromaticNeighbour(AUG_TRIADS['G'], chordsBetweenGAndD[1]);
-assertChromaticNeighbour(AUG_TRIADS['D'], chordsBetweenGAndD[0]);
+chordsBetweenGAndD[1].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['G'], 1));
+chordsBetweenGAndD[0].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['D'], 1));
 
 const chordsBetweenDAndF = [MINOR_CHORDS, MAJOR_CHORDS].map(chord => ['D', 'Gb', 'Bb'].map(n => chord[n]));
 const chordLinksBetweenDAndF = [
@@ -41,8 +34,8 @@ const chordLinksBetweenDAndF = [
     [MAJOR_CHORDS['Gb'], MINOR_CHORDS['Gb']], [MAJOR_CHORDS['Gb'], MINOR_CHORDS['Bb']],
     [MAJOR_CHORDS['Bb'], MINOR_CHORDS['Bb']], [MAJOR_CHORDS['Bb'], MINOR_CHORDS['D']],
 ];
-assertChromaticNeighbour(AUG_TRIADS['D'], chordsBetweenDAndF[1]);
-assertChromaticNeighbour(AUG_TRIADS['F'], chordsBetweenDAndF[0]);
+chordsBetweenDAndF[1].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['D'], 1));
+chordsBetweenDAndF[0].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['F'], 1));
 
 const chordsBetweenFAndC = [MAJOR_CHORDS, MINOR_CHORDS].map(chord => ['F', 'A', 'Db'].map(n => chord[n]));
 const chordLinksBetweenFAndC = [
@@ -50,8 +43,8 @@ const chordLinksBetweenFAndC = [
     [MINOR_CHORDS['A'], MAJOR_CHORDS['A']], [MINOR_CHORDS['Db'], MAJOR_CHORDS['A']],
     [MINOR_CHORDS['Db'], MAJOR_CHORDS['Db']], [MINOR_CHORDS['F'], MAJOR_CHORDS['Db']],
 ];
-assertChromaticNeighbour(AUG_TRIADS['F'], chordsBetweenFAndC[0]);
-assertChromaticNeighbour(AUG_TRIADS['C'], chordsBetweenFAndC[1]);
+chordsBetweenFAndC[0].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['F'], 1));
+chordsBetweenFAndC[1].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['C'], 1));
 
 class App extends React.Component {
     render() {

@@ -6,7 +6,6 @@ import { CHORD_BOX_Z_INDEX } from '../consts.js';
 import { sizeAndPositionFromAngle } from '../service.js';
 
 
-// TODO: do we need anything else from ../chordBox.js?
 export default function AsymmetricalChordBox(props) {
     const nRows = Math.max(...props.chordCols.map(col => col.length));
     const nCols = props.chordCols.length;
