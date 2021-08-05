@@ -81,8 +81,6 @@ export class AsymmetricalChordBox extends ChordBox {
         table.appendChild(tBody);
         this.node.appendChild(table);
 
-        // TODO: chordlink logic is too clever to be handled by the chordbox. Work it out at the top level and just pass it down? At the very least, boxes shouldn't know about their neighbours. Plan it out and do assertions etc. at the top level
-
         // Build links to neighbour cardinal chords
         this.neighbours.map(n => new ChordLink(this.node, n.node, true));
 
