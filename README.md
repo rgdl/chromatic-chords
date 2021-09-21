@@ -17,3 +17,8 @@ Find TODOs:
 ```bash
 grep . -Irine todo --exclude-dir={node_modules,dist,.git} --exclude README.md
 ```
+
+tree without git and node modules:
+```bash
+tree -a -I ".git|node_modules"
+```

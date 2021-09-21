@@ -1,4 +1,4 @@
-const NOTE_NAMES = ['C', 'Db', 'D', 'Eb', 'E', 'F', 'Gb', 'G', 'Ab', 'A', 'Bb', 'B'];
+import { NOTE_NAMES } from './consts.js';
 
 export default class Chord {
     constructor(name, notes) {

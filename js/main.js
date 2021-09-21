@@ -5,6 +5,7 @@ import { AUG_TRIADS, MAJOR_CHORDS, MINOR_CHORDS, assertChordDistanceEquals } fro
 
 import AsymmetricalChordBox from './components/AsymmetricalChordBox.js';
 import CardinalChordBox from './components/CardinalChordBox.js';
+import ScaleFilterBox from './components/ScaleFilterBox.js';
 import { CONTAINER_SIZE, NODE_SIZE } from './consts.js';
 
 
@@ -51,34 +52,34 @@ chordsBetweenFAndC[0].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['
 chordsBetweenFAndC[1].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['C'], 1));
 
 class App extends React.Component {
-    render() {
-        return (
-            <React.Fragment>
-                <h1>Chromatic Chords</h1>
+    render() { return (
+        <React.Fragment>
+            <h1>Chromatic Chords</h1>
 
-                <h2>Triads</h2>
-                <div
-                    className='triad-container'
-                    style={{
-                        width: `${CONTAINER_SIZE}%`, height: `${CONTAINER_SIZE}%`,
-                        marginTop: `${NODE_SIZE / 2}%`,  marginBottom: `${NODE_SIZE / 2}%`,
-                    }}
-                >
-                    <CardinalChordBox theta={3 * Math.PI / 2} chord={AUG_TRIADS['C']} />
-                    <AsymmetricalChordBox theta={7 * Math.PI / 4} chordCols={chordsBetweenCAndG} chordLinks={chordLinksBetweenCAndG} />
+            <h2>Triads</h2>
+            <div
+                className='triad-container'
+                style={{
+                    width: `${CONTAINER_SIZE}%`, height: `${CONTAINER_SIZE}%`,
+                    marginTop: `${NODE_SIZE / 2}%`,  marginBottom: `${NODE_SIZE / 2}%`,
+                }}
+            >
+                <CardinalChordBox theta={3 * Math.PI / 2} chord={AUG_TRIADS['C']} />
+                <AsymmetricalChordBox theta={7 * Math.PI / 4} chordCols={chordsBetweenCAndG} chordLinks={chordLinksBetweenCAndG} />
 
-                    <CardinalChordBox theta={0} chord={AUG_TRIADS['G']} />
-                    <AsymmetricalChordBox theta={1 * Math.PI / 4} chordCols={chordsBetweenGAndD} chordLinks={chordLinksBetweenGAndD} />
+                <CardinalChordBox theta={0} chord={AUG_TRIADS['G']} />
+                <AsymmetricalChordBox theta={1 * Math.PI / 4} chordCols={chordsBetweenGAndD} chordLinks={chordLinksBetweenGAndD} />
 
-                    <CardinalChordBox theta={Math.PI / 2} chord={AUG_TRIADS['D']} />
-                    <AsymmetricalChordBox theta={3 * Math.PI / 4} chordCols={chordsBetweenDAndF} chordLinks={chordLinksBetweenDAndF} />
+                <CardinalChordBox theta={Math.PI / 2} chord={AUG_TRIADS['D']} />
+                <AsymmetricalChordBox theta={3 * Math.PI / 4} chordCols={chordsBetweenDAndF} chordLinks={chordLinksBetweenDAndF} />
 
-                    <CardinalChordBox theta={Math.PI} chord={AUG_TRIADS['F']} />
-                    <AsymmetricalChordBox theta={5 * Math.PI / 4} chordCols={chordsBetweenFAndC} chordLinks={chordLinksBetweenFAndC} />
-                </div>
-            </React.Fragment>
-        );
-    }
+                <CardinalChordBox theta={Math.PI} chord={AUG_TRIADS['F']} />
+                <AsymmetricalChordBox theta={5 * Math.PI / 4} chordCols={chordsBetweenFAndC} chordLinks={chordLinksBetweenFAndC} />
+            </div>
+
+            <ScaleFilterBox />
+        </React.Fragment>
+        ); }
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
