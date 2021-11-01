@@ -20,9 +20,9 @@ function renderChordTableCell(chord, selectedChords, key, isLastInRow) {
     return (
         <React.Fragment key={key}>
             <td key={key} className={name} style={chordStyle}>{name}</td>
-        {isLastInRow && (
-            <td style={gapStyle} className="chordLinkCell" key={`${key}_gap`} />
-        )}
+            {isLastInRow && (
+                <td style={gapStyle} className="chordLinkCell" key={`${key}_gap`} />
+            )}
         </React.Fragment>
     );
 }
@@ -51,7 +51,7 @@ export default function AsymmetricalChordBox(props) {
                                 props.selectedChords,
                                 chord.name,
                                 j < nCols - 1,
-                            )
+                            );
                         })}
                     </tr>
                 ))}

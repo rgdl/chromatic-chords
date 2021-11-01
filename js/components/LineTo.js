@@ -6,7 +6,10 @@ import LineToOriginal from 'react-lineto';
 // Also, it doesn't update when the screen is resized
 
 export default class LineTo extends React.Component {
-    state = { rendered: false, resizeCount: 0 };
+    constructor(props) {
+        super(props);
+        this.state = { rendered: false, resizeCount: 0 };
+    }
 
     componentDidMount() {
         // Workaround for invisibility on first render

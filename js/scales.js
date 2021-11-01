@@ -13,7 +13,7 @@ export default class Scale {
     contains(chord) {
         return this.chords.includes(chord);
     }
-};
+}
 
 export const DIATONIC_SCALES = Object.fromEntries(NOTE_NAMES.map(
     (root, i) => [root, new Scale(

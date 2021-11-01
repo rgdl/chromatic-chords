@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Chord from '../chords.js';
 import { CIRCLE_OF_FIFTHS_ORDER_NOTE_NAMES } from '../consts.js';
 import { DIATONIC_SCALES } from '../scales.js';
 
@@ -9,7 +8,7 @@ import { DIATONIC_SCALES } from '../scales.js';
 
 const SCALES = {
     'Major': DIATONIC_SCALES,
-}
+};
 
 export default class ScaleFilterBox extends React.Component {
     scaleIsSelected = scale => !!this.props.selectedScales[scale.name]
@@ -27,7 +26,7 @@ export default class ScaleFilterBox extends React.Component {
                 />
                 <label htmlFor={scale.name}>{tonic}</label>
             </React.Fragment>
-        )
+        );
     }
 
     // TODO: in CSS overhaul, find and remove all inline styles

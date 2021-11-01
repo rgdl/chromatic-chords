@@ -56,7 +56,7 @@ chordsBetweenFAndC[1].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { selectedScales: {}, selectedChords: [] }
+        this.state = { selectedScales: {}, selectedChords: [] };
     }
 
     onSelectScale = (scale) => {
@@ -73,62 +73,63 @@ class App extends React.Component {
         const chords = [];
         Object.values(DIATONIC_SCALES)
             .filter(s => this.state.selectedScales[s.name])
-            .map(s => s.chords.map(c => chords.includes(c) || chords.push(c)))
+            .map(s => s.chords.map(c => chords.includes(c) || chords.push(c)));
         this.setState({ selectedChords: chords });
     }
 
     render() {
         return (
-        <React.Fragment>
-            <h1>Chromatic Chords</h1>
+            <React.Fragment>
+                <h1>Chromatic Chords</h1>
 
-            <h2>Triads</h2>
-            <div
-                className='triad-container'
-                style={{
-                    width: `${CONTAINER_SIZE}%`, height: `${CONTAINER_SIZE}%`,
-                    marginTop: `${NODE_SIZE / 2}%`,  marginBottom: `${NODE_SIZE / 2}%`,
-                }}
-            >
-                <CardinalChordBox theta={3 * Math.PI / 2} chord={AUG_TRIADS['C']} />
-                <AsymmetricalChordBox
-                    theta={7 * Math.PI / 4}
-                    chordCols={chordsBetweenCAndG}
-                    chordLinks={chordLinksBetweenCAndG}
-                    selectedChords={this.state.selectedChords}
+                <h2>Triads</h2>
+                <div
+                    className='triad-container'
+                    style={{
+                        width: `${CONTAINER_SIZE}%`, height: `${CONTAINER_SIZE}%`,
+                        marginTop: `${NODE_SIZE / 2}%`,  marginBottom: `${NODE_SIZE / 2}%`,
+                    }}
+                >
+                    <CardinalChordBox theta={3 * Math.PI / 2} chord={AUG_TRIADS['C']} />
+                    <AsymmetricalChordBox
+                        theta={7 * Math.PI / 4}
+                        chordCols={chordsBetweenCAndG}
+                        chordLinks={chordLinksBetweenCAndG}
+                        selectedChords={this.state.selectedChords}
+                    />
+
+                    <CardinalChordBox theta={0} chord={AUG_TRIADS['G']} />
+                    <AsymmetricalChordBox
+                        theta={1 * Math.PI / 4}
+                        chordCols={chordsBetweenGAndD}
+                        chordLinks={chordLinksBetweenGAndD}
+                        selectedChords={this.state.selectedChords}
+                    />
+
+                    <CardinalChordBox theta={Math.PI / 2} chord={AUG_TRIADS['D']} />
+                    <AsymmetricalChordBox
+                        theta={3 * Math.PI / 4}
+                        chordCols={chordsBetweenDAndF}
+                        chordLinks={chordLinksBetweenDAndF}
+                        selectedChords={this.state.selectedChords}
+                    />
+
+                    <CardinalChordBox theta={Math.PI} chord={AUG_TRIADS['F']} />
+                    <AsymmetricalChordBox
+                        theta={5 * Math.PI / 4}
+                        chordCols={chordsBetweenFAndC}
+                        chordLinks={chordLinksBetweenFAndC}
+                        selectedChords={this.state.selectedChords}
+                    />
+                </div>
+
+                <ScaleFilterBox
+                    onSelectScale={this.onSelectScale}
+                    selectedScales={this.state.selectedScales}
                 />
-
-                <CardinalChordBox theta={0} chord={AUG_TRIADS['G']} />
-                <AsymmetricalChordBox
-                    theta={1 * Math.PI / 4}
-                    chordCols={chordsBetweenGAndD}
-                    chordLinks={chordLinksBetweenGAndD}
-                    selectedChords={this.state.selectedChords}
-                />
-
-                <CardinalChordBox theta={Math.PI / 2} chord={AUG_TRIADS['D']} />
-                <AsymmetricalChordBox
-                    theta={3 * Math.PI / 4}
-                    chordCols={chordsBetweenDAndF}
-                    chordLinks={chordLinksBetweenDAndF}
-                    selectedChords={this.state.selectedChords}
-                />
-
-                <CardinalChordBox theta={Math.PI} chord={AUG_TRIADS['F']} />
-                <AsymmetricalChordBox
-                    theta={5 * Math.PI / 4}
-                    chordCols={chordsBetweenFAndC}
-                    chordLinks={chordLinksBetweenFAndC}
-                    selectedChords={this.state.selectedChords}
-                />
-            </div>
-
-            <ScaleFilterBox
-                onSelectScale={this.onSelectScale}
-                selectedScales={this.state.selectedScales}
-            />
-        </React.Fragment>
-        ); }
+            </React.Fragment>
+        );
+    }
 }
 
 ReactDOM.render(<App />, document.getElementById('root'));
