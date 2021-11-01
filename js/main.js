@@ -15,6 +15,7 @@ import { CONTAINER_SIZE, NODE_SIZE } from './consts.js';
 // TODO: use react lineto to join chord boxes, not the circle thing
 // TODO: use Less CSS
 // TODO: tooltip over chord telling which keys it's in
+// TODO: add 7th chords!
 
 const chordsBetweenCAndG = [MAJOR_CHORDS, MINOR_CHORDS].map(chord => ['C', 'E', 'Ab'].map(n => chord[n]));
 const chordLinksBetweenCAndG = [
