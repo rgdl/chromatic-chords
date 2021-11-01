@@ -10,18 +10,26 @@ import { sizeAndPositionFromAngle } from '../service.js';
 // TODO: incorporate the LESS CSS framework and do a big style refactor
 function renderChordTableCell(chord, selectedChords, key, isLastInRow) {
     const name = chord.name;
-    const isSelected = selectedChords.includes(chord) || selectedChords.length === 0;
+
     // TODO: do this with CSS classes
-    const style = isSelected ? {} : { color: 'lightgrey' };
+    const chordStyle = {};
+    if (isChordSelected(chord, selectedChords)) {
+        chordStyle.color = 'lightgrey';
+    }
+
     const gapStyle = { width: '20px' };
     return (
         <React.Fragment>
-            <td key={key} className={name} style={style}>{name}</td>
+            <td key={key} className={name} style={chordStyle}>{name}</td>
         {isLastInRow && (
             <td style={gapStyle} className="chordLinkCell" key={`${key}_gap`} />
         )}
         </React.Fragment>
     );
+}
+
+function isChordSelected(chord, selectedChords) {
+    return selectedChords.includes(chord) || selectedChords.length === 0;
 }
 
 export default function AsymmetricalChordBox(props) {
@@ -49,13 +57,21 @@ export default function AsymmetricalChordBox(props) {
                 ))}
             </tbody></table>
             <React.Fragment>
+
                 {props.chordLinks.map((chords, i) => (
                     <LineTo
                         from={chords[0].name}
                         fromAnchor="left"
                         to={chords[1].name}
                         toAnchor="right"
-                        borderColor="darkred"
+                        borderColor={
+                            (
+                                isChordSelected(chords[0], props.selectedChords)
+                                && isChordSelected(chords[1], props.selectedChords)
+                            ) ?
+                                "darkred" :
+                                "lightgrey"
+                        }
                         key={i}
                     />
                 ))}

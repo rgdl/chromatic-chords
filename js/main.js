@@ -11,7 +11,6 @@ import { CONTAINER_SIZE, NODE_SIZE } from './consts.js';
 
 
 // TODO: eventually should have index.js instead of index.html
-// TODO: add regions for selecting scales, to grey out chords
 // TODO: make chord boxes look better
 // TODO: use react lineto to join chord boxes, not the circle thing
 // TODO: use Less CSS
