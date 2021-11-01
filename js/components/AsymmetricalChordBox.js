@@ -6,20 +6,19 @@ import { CHORD_BOX_Z_INDEX } from '../consts.js';
 import { sizeAndPositionFromAngle } from '../service.js';
 
 
-// TODO: also conditionally style lines so they're much more salient when both of the chords they connect are selected
 // TODO: incorporate the LESS CSS framework and do a big style refactor
 function renderChordTableCell(chord, selectedChords, key, isLastInRow) {
     const name = chord.name;
 
     // TODO: do this with CSS classes
     const chordStyle = {};
-    if (isChordSelected(chord, selectedChords)) {
+    if (!isChordSelected(chord, selectedChords)) {
         chordStyle.color = 'lightgrey';
     }
 
     const gapStyle = { width: '20px' };
     return (
-        <React.Fragment>
+        <React.Fragment key={key}>
             <td key={key} className={name} style={chordStyle}>{name}</td>
         {isLastInRow && (
             <td style={gapStyle} className="chordLinkCell" key={`${key}_gap`} />
@@ -29,7 +28,7 @@ function renderChordTableCell(chord, selectedChords, key, isLastInRow) {
 }
 
 function isChordSelected(chord, selectedChords) {
-    return selectedChords.includes(chord) || selectedChords.length === 0;
+    return selectedChords.includes(chord) || (selectedChords.length === 0);
 }
 
 export default function AsymmetricalChordBox(props) {
@@ -44,20 +43,20 @@ export default function AsymmetricalChordBox(props) {
         >
             <table><tbody>
                 {Array(nRows).fill(0).map((_, i) => (
-                    <tr key={i}>
-                        {Array(nCols).fill(0).map((_, j) => (
-                            renderChordTableCell(
-                                props.chordCols[j][i],
+                    <tr key={`chord_row${i}`}>
+                        {Array(nCols).fill(0).map((_, j) => {
+                            const chord = props.chordCols[j][i];
+                            return renderChordTableCell(
+                                chord,
                                 props.selectedChords,
-                                j,
+                                chord.name,
                                 j < nCols - 1,
                             )
-                        ))}
+                        })}
                     </tr>
                 ))}
             </tbody></table>
             <React.Fragment>
-
                 {props.chordLinks.map((chords, i) => (
                     <LineTo
                         from={chords[0].name}
@@ -72,7 +71,7 @@ export default function AsymmetricalChordBox(props) {
                                 "darkred" :
                                 "lightgrey"
                         }
-                        key={i}
+                        key={`line_${i}`}
                     />
                 ))}
             </React.Fragment>

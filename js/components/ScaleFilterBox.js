@@ -5,6 +5,7 @@ import Chord from '../chords.js';
 import { DIATONIC_SCALES } from '../scales.js';
 
 // TODO: can I make this a flex box layout?
+// TODO: use circle of 5ths order
 export default class ScaleFilterBox extends React.Component {
     render() {
         return (
