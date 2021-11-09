@@ -38,7 +38,7 @@ export default function AsymmetricalChordBox(props) {
     props.chordLinks.map(link => console.assert(link[0].distance(link[1]) === 1));
     return (
         <div
-            className='chord-box asymmetrical-chord-box'
+            className={`chord-box asymmetrical-chord-box ${props.lineToClassName}`}
             style={{ ...sizeAndPositionFromAngle(props.theta), zIndex: CHORD_BOX_Z_INDEX }}
         >
             <table><tbody>
@@ -85,4 +85,6 @@ AsymmetricalChordBox.propTypes = {
     chordCols: PropTypes.arrayOf(PropTypes.arrayOf(Object)).isRequired,
     chordLinks: PropTypes.arrayOf(PropTypes.arrayOf(Object)).isRequired,
     selectedChords: PropTypes.arrayOf(Object).isRequired,
+    // To be used for linking with joining lines
+    lineToClassName: PropTypes.string.isRequired,
 };

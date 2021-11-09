@@ -11,8 +11,6 @@ h1, h2 {
 .triad-container {
     margin: auto;
     position: relative;
-    border: 1px solid darkred;
-    border-radius: 50%;
 }
 
 #triad-selection {
