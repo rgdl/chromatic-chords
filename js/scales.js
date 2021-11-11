@@ -1,7 +1,7 @@
 /*
  * A Scale is just a set of Chords.
 */
-import { AUG_TRIADS, MAJOR_CHORDS, MINOR_CHORDS } from './chords.js';
+import { MAJOR_CHORDS, MINOR_CHORDS } from './chords.js';
 import { NOTE_NAMES } from './consts.js';
 
 export default class Scale {

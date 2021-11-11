@@ -1,0 +1,80 @@
+@import './consts.less';
+@plugin './customPlugins.js';
+
+// TODO: extract things to constants where I can
+// TODO: after the refactor to LESS, make sure each of these is applying as expected
+
+html, body, #root {
+    background-image: linear-gradient(to bottom, darkblue, black);
+    color: ivory;
+    height: 100%;
+}
+
+h1, h2 { text-align: center; }
+
+.triad-container {
+    margin: auto;
+    position: relative;
+    width: @container-size;
+    height: @container-size;
+    margin-top: @node-size / 2;
+    margin-bottom: @node-size / 2;
+}
+
+.scale-filter-box {
+    background-color: lightgrey;
+    .scaleFilterCheckBox {
+        input { margin-left: 15px; }
+    }
+    h2 { margin: 0; }
+    h3 { display: inline-block; }
+}
+
+.chord-box {
+    background: ivory;
+    position: absolute;
+    margin: 0;
+    color: black;
+    text-align: center;
+    z-index: @chord-box-z-index;
+    width: @node-size;
+    height: @node-size;
+}
+
+.asymmetrical-chord-box {
+    &:extend(.chord-box);
+    border-radius: 50%;
+    display: flex;
+
+    table { margin: auto; }
+
+    td {
+        white-space: nowrap;
+        margin: 0 10%;
+    }
+
+    .chordLinkCell { width: 200px; }
+
+    .chordLabel { }
+
+    .disabled { color: lightgrey; }
+}
+
+.chord-link {
+    height: 0;
+    border: 1px solid darkred;
+    position: absolute;
+}
+
+// Triad positions
+.generate-box-positions(8);
+// 7th chord positions
+.generate-box-positions(6);
+
+.generate-box-positions(@n, @i: 0) when (@i < @n) {
+    .box-position-@{i}-of-@{n} {
+        left: left-position-from-theta(2 * pi() * (@i / @n), @node-size);
+        top: top-position-from-theta(2 * pi() * (@i / @n), @node-size);
+    }
+    .generate-box-positions(@n, (@i + 1));
+}

@@ -1,48 +1,120 @@
-html, body, #root {
-    background-image: linear-gradient(to bottom, darkblue, black);
-    color: ivory;
-    height: 100%;
+html,
+body,
+#root {
+  background-image: linear-gradient(to bottom, darkblue, black);
+  color: ivory;
+  height: 100%;
 }
-
-h1, h2 {
-    text-align: center;
+h1,
+h2 {
+  text-align: center;
 }
-
 .triad-container {
-    margin: auto;
-    position: relative;
+  margin: auto;
+  position: relative;
+  width: 60%;
+  height: 60%;
+  margin-top: 20% / 2;
+  margin-bottom: 20% / 2;
 }
-
-#triad-selection {
-    background: ivory;
-    width: 100%;
-    height: 30px;
+.scale-filter-box {
+  background-color: lightgrey;
 }
-
-.chord-box {
-    background: ivory;
-    position: absolute;
-    margin: 0;
-    color: black;
-    text-align: center;
+.scale-filter-box .scaleFilterCheckBox input {
+  margin-left: 15px;
 }
-
+.scale-filter-box h2 {
+  margin: 0;
+}
+.scale-filter-box h3 {
+  display: inline-block;
+}
+.chord-box,
 .asymmetrical-chord-box {
-    border-radius: 50%;
-    display: flex;
+  background: ivory;
+  position: absolute;
+  margin: 0;
+  color: black;
+  text-align: center;
+  z-index: 1;
+  width: 20%;
+  height: 20%;
 }
-
+.asymmetrical-chord-box {
+  border-radius: 50%;
+  display: flex;
+}
 .asymmetrical-chord-box table {
-    margin: auto;
+  margin: auto;
 }
-
 .asymmetrical-chord-box td {
-    white-space: nowrap;
-    margin: 0 10%;
+  white-space: nowrap;
+  margin: 0 10%;
 }
-
+.asymmetrical-chord-box .chordLinkCell {
+  width: 200px;
+}
+.asymmetrical-chord-box .disabled {
+  color: lightgrey;
+}
 .chord-link {
-    height: 0;
-    border: 1px solid darkred;
-    position: absolute;
+  height: 0;
+  border: 1px solid darkred;
+  position: absolute;
+}
+.box-position-0-of-8 {
+  left: 90%;
+  top: 40%;
+}
+.box-position-1-of-8 {
+  left: 75.35533905932738%;
+  top: 75.35533905932738%;
+}
+.box-position-2-of-8 {
+  left: 40%;
+  top: 90%;
+}
+.box-position-3-of-8 {
+  left: 4.64466094067263%;
+  top: 75.35533905932738%;
+}
+.box-position-4-of-8 {
+  left: -10%;
+  top: 40.00000000000001%;
+}
+.box-position-5-of-8 {
+  left: 4.644660940672615%;
+  top: 4.64466094067263%;
+}
+.box-position-6-of-8 {
+  left: 39.99999999999999%;
+  top: -10%;
+}
+.box-position-7-of-8 {
+  left: 75.35533905932738%;
+  top: 4.644660940672615%;
+}
+.box-position-0-of-6 {
+  left: 90%;
+  top: 40%;
+}
+.box-position-1-of-6 {
+  left: 65%;
+  top: 83.30127018922192%;
+}
+.box-position-2-of-6 {
+  left: 15.00000000000001%;
+  top: 83.30127018922194%;
+}
+.box-position-3-of-6 {
+  left: -10%;
+  top: 40.00000000000001%;
+}
+.box-position-4-of-6 {
+  left: 14.999999999999979%;
+  top: -3.301270189221924%;
+}
+.box-position-5-of-6 {
+  left: 65%;
+  top: -3.301270189221931%;
 }

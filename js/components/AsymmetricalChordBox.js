@@ -2,27 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import LineTo from './LineTo.js';
-import { CHORD_BOX_Z_INDEX } from '../consts.js';
-import { sizeAndPositionFromAngle } from '../service.js';
 
 
-// TODO: incorporate the LESS CSS framework and do a big style refactor
 function renderChordTableCell(chord, selectedChords, key, isLastInRow) {
     const name = chord.name;
 
-    // TODO: do this with CSS classes
-    const chordStyle = {};
-    if (!isChordSelected(chord, selectedChords)) {
-        chordStyle.color = 'lightgrey';
-    }
+    const disabledClass = !isChordSelected(chord, selectedChords) ? "disabled" : "";
+    const chordClassName = `${name} chordLabel ${disabledClass}`;
 
-    const gapStyle = { width: '20px' };
     return (
         <React.Fragment key={key}>
-            <td key={key} className={name} style={chordStyle}>{name}</td>
-            {isLastInRow && (
-                <td style={gapStyle} className="chordLinkCell" key={`${key}_gap`} />
-            )}
+            <td key={key} className={chordClassName}>{name}</td>
+            {isLastInRow && (<td className="chordLinkCell" key={`${key}_gap`} />)}
         </React.Fragment>
     );
 }
@@ -37,10 +28,7 @@ export default function AsymmetricalChordBox(props) {
 
     props.chordLinks.map(link => console.assert(link[0].distance(link[1]) === 1));
     return (
-        <div
-            className={`chord-box asymmetrical-chord-box ${props.lineToClassName}`}
-            style={{ ...sizeAndPositionFromAngle(props.theta), zIndex: CHORD_BOX_Z_INDEX }}
-        >
+        <div className={`asymmetrical-chord-box ${props.positionClassName} ${props.lineToClassName}`} >
             <table><tbody>
                 {Array(nRows).fill(0).map((_, i) => (
                     <tr key={`chord_row${i}`}>
@@ -64,6 +52,7 @@ export default function AsymmetricalChordBox(props) {
                         to={chords[1].name}
                         toAnchor="right"
                         borderColor={
+                            //TODO: color LineTo using CSS?
                             (
                                 isChordSelected(chords[0], props.selectedChords)
                                 && isChordSelected(chords[1], props.selectedChords)
@@ -87,4 +76,6 @@ AsymmetricalChordBox.propTypes = {
     selectedChords: PropTypes.arrayOf(Object).isRequired,
     // To be used for linking with joining lines
     lineToClassName: PropTypes.string.isRequired,
+    // To be used for positioning
+    positionClassName: PropTypes.string.isRequired,
 };
