@@ -12,7 +12,6 @@ export default function CardinalChordBox(props) {
 }
 
 CardinalChordBox.propTypes = {
-    theta: PropTypes.number.isRequired,
     chord: PropTypes.object.isRequired,
     // To be used for linking with joining lines
     lineToClassName: PropTypes.string.isRequired,

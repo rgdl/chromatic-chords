@@ -14,13 +14,16 @@ h2 {
   position: relative;
   width: 60%;
   height: 60%;
-  margin-top: 20% / 2;
-  margin-bottom: 20% / 2;
+  margin-top: calc(20% / 2);
+  margin-bottom: calc(20% / 2);
 }
 .scale-filter-box {
-  background-color: lightgrey;
+  background-color: grey;
 }
-.scale-filter-box .scaleFilterCheckBox input {
+.scale-filter-box .scale-filter-check-box {
+  display: inline-block;
+}
+.scale-filter-box .scale-filter-check-box input {
   margin-left: 15px;
 }
 .scale-filter-box h2 {
@@ -30,6 +33,7 @@ h2 {
   display: inline-block;
 }
 .chord-box,
+.cardinal-chord-box,
 .asymmetrical-chord-box {
   background: ivory;
   position: absolute;
@@ -56,11 +60,6 @@ h2 {
 }
 .asymmetrical-chord-box .disabled {
   color: lightgrey;
-}
-.chord-link {
-  height: 0;
-  border: 1px solid darkred;
-  position: absolute;
 }
 .box-position-0-of-8 {
   left: 90%;

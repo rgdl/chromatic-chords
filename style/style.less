@@ -2,7 +2,6 @@
 @plugin './customPlugins.js';
 
 // TODO: extract things to constants where I can
-// TODO: after the refactor to LESS, make sure each of these is applying as expected
 
 html, body, #root {
     background-image: linear-gradient(to bottom, darkblue, black);
@@ -17,13 +16,14 @@ h1, h2 { text-align: center; }
     position: relative;
     width: @container-size;
     height: @container-size;
-    margin-top: @node-size / 2;
-    margin-bottom: @node-size / 2;
+    margin-top: calc(@node-size / 2);
+    margin-bottom: calc(@node-size / 2);
 }
 
 .scale-filter-box {
-    background-color: lightgrey;
-    .scaleFilterCheckBox {
+    background-color: grey;
+    .scale-filter-check-box {
+        display: inline-block;
         input { margin-left: 15px; }
     }
     h2 { margin: 0; }
@@ -39,6 +39,10 @@ h1, h2 { text-align: center; }
     z-index: @chord-box-z-index;
     width: @node-size;
     height: @node-size;
+}
+
+.cardinal-chord-box {
+    &:extend(.chord-box);
 }
 
 .asymmetrical-chord-box {
@@ -57,13 +61,7 @@ h1, h2 { text-align: center; }
 
     .chordLabel { }
 
-    .disabled { color: lightgrey; }
-}
-
-.chord-link {
-    height: 0;
-    border: 1px solid darkred;
-    position: absolute;
+    .disabled { color: @disabled-colour; }
 }
 
 // Triad positions

@@ -103,53 +103,53 @@ class App extends React.Component {
                     <CardinalChordBox
                         chord={AUG_TRIADS['C']}
                         lineToClassName="c-aug-box"
-                        positionClassName={buildPositionClassName(0, nTriadBoxes)}
+                        positionClassName={buildPositionClassName(6, nTriadBoxes)}
                     />
                     <AsymmetricalChordBox
                         chordCols={chordsBetweenCAndG}
                         chordLinks={chordLinksBetweenCAndG}
                         selectedChords={this.state.selectedChords}
                         lineToClassName="chords-between-c-and-g-box"
-                        positionClassName={buildPositionClassName(1, nTriadBoxes)}
+                        positionClassName={buildPositionClassName(7, nTriadBoxes)}
                     />
 
                     <CardinalChordBox
                         chord={AUG_TRIADS['G']}
                         lineToClassName="g-aug-box"
-                        positionClassName={buildPositionClassName(2, nTriadBoxes)}
+                        positionClassName={buildPositionClassName(0, nTriadBoxes)}
                     />
                     <AsymmetricalChordBox
                         chordCols={chordsBetweenGAndD}
                         chordLinks={chordLinksBetweenGAndD}
                         selectedChords={this.state.selectedChords}
                         lineToClassName="chords-between-g-and-d-box"
-                        positionClassName={buildPositionClassName(3, nTriadBoxes)}
+                        positionClassName={buildPositionClassName(1, nTriadBoxes)}
                     />
 
                     <CardinalChordBox
                         chord={AUG_TRIADS['D']}
                         lineToClassName="d-aug-box"
-                        positionClassName={buildPositionClassName(4, nTriadBoxes)}
+                        positionClassName={buildPositionClassName(2, nTriadBoxes)}
                     />
                     <AsymmetricalChordBox
                         chordCols={chordsBetweenDAndF}
                         chordLinks={chordLinksBetweenDAndF}
                         selectedChords={this.state.selectedChords}
                         lineToClassName="chords-between-d-and-f-box"
-                        positionClassName={buildPositionClassName(5, nTriadBoxes)}
+                        positionClassName={buildPositionClassName(3, nTriadBoxes)}
                     />
 
                     <CardinalChordBox
                         chord={AUG_TRIADS['F']}
                         lineToClassName="f-aug-box"
-                        positionClassName={buildPositionClassName(6, nTriadBoxes)}
+                        positionClassName={buildPositionClassName(4, nTriadBoxes)}
                     />
                     <AsymmetricalChordBox
                         chordCols={chordsBetweenFAndC}
                         chordLinks={chordLinksBetweenFAndC}
                         selectedChords={this.state.selectedChords}
                         lineToClassName="chords-between-f-and-c-box"
-                        positionClassName={buildPositionClassName(7, nTriadBoxes)}
+                        positionClassName={buildPositionClassName(5, nTriadBoxes)}
                     />
                     {connectingLineProps.map((p, i) => (
                         <LineTo {...p} borderColor="darkred" zIndex={0} key={i} />

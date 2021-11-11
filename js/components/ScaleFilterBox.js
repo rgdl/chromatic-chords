@@ -15,7 +15,7 @@ export default class ScaleFilterBox extends React.Component {
 
     renderScale = (scale, tonic) => {
         return (
-            <div key={tonic} className="scaleFilterCheckbox">
+            <div key={tonic} className="scale-filter-check-box">
                 <input
                     type="checkbox"
                     id={scale.name}

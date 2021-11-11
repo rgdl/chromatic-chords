@@ -70,7 +70,6 @@ export default function AsymmetricalChordBox(props) {
 }
 
 AsymmetricalChordBox.propTypes = {
-    theta: PropTypes.number.isRequired,
     chordCols: PropTypes.arrayOf(PropTypes.arrayOf(Object)).isRequired,
     chordLinks: PropTypes.arrayOf(PropTypes.arrayOf(Object)).isRequired,
     selectedChords: PropTypes.arrayOf(Object).isRequired,
