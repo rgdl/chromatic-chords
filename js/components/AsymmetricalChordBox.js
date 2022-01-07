@@ -52,7 +52,6 @@ export default function AsymmetricalChordBox(props) {
                         to={chords[1].name}
                         toAnchor="right"
                         borderColor={
-                            //TODO: color LineTo using CSS?
                             (
                                 isChordSelected(chords[0], props.selectedChords)
                                 && isChordSelected(chords[1], props.selectedChords)

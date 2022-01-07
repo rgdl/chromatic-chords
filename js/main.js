@@ -66,7 +66,10 @@ class App extends React.Component {
                 <div className='triad-container'>
                     <CardinalChordBox
                         chord={AUG_TRIADS['C']}
-                        isSelected={!!this.state.selectedChords[AUG_TRIADS['C']]}
+                        isSelected={
+                            this.state.selectedChords.length === 0
+                            || this.state.selectedChords.includes(AUG_TRIADS['C'])
+                        }
                         lineToClassName="c-aug-box"
                         positionClassName={buildPositionClassName(6, nTriadBoxes)}
                     />
@@ -80,7 +83,10 @@ class App extends React.Component {
 
                     <CardinalChordBox
                         chord={AUG_TRIADS['G']}
-                        isSelected={!!this.state.selectedChords[AUG_TRIADS['G']]}
+                        isSelected={
+                            this.state.selectedChords.length === 0
+                            || this.state.selectedChords.includes(AUG_TRIADS['G'])
+                        }
                         lineToClassName="g-aug-box"
                         positionClassName={buildPositionClassName(0, nTriadBoxes)}
                     />
@@ -94,7 +100,10 @@ class App extends React.Component {
 
                     <CardinalChordBox
                         chord={AUG_TRIADS['D']}
-                        isSelected={!!this.state.selectedChords[AUG_TRIADS['D']]}
+                        isSelected={
+                            this.state.selectedChords.length === 0
+                            || this.state.selectedChords.includes(AUG_TRIADS['D'])
+                        }
                         lineToClassName="d-aug-box"
                         positionClassName={buildPositionClassName(2, nTriadBoxes)}
                     />
@@ -108,7 +117,10 @@ class App extends React.Component {
 
                     <CardinalChordBox
                         chord={AUG_TRIADS['F']}
-                        isSelected={!!this.state.selectedChords[AUG_TRIADS['F']]}
+                        isSelected={
+                            this.state.selectedChords.length === 0
+                            || this.state.selectedChords.includes(AUG_TRIADS['F'])
+                        }
                         lineToClassName="f-aug-box"
                         positionClassName={buildPositionClassName(4, nTriadBoxes)}
                     />

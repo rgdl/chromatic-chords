@@ -4,7 +4,6 @@ import React from 'react';
 
 export default function CardinalChordBox(props) {
     const disabledClass = props.isSelected ? "" : "disabled";
-    console.log(props);
     return (
         <div className={
             `cardinal-chord-box ${props.positionClassName} ${props.lineToClassName} ${disabledClass}`
