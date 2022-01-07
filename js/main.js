@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { AUG_TRIADS, MAJOR_CHORDS, MINOR_CHORDS, assertChordDistanceEquals } from './chords.js';
+import { TRIAD_GROUPS, TRIAD_LINKS } from './chords.js';
+import { AUG_TRIADS } from './chords.js';
 import { DIATONIC_SCALES } from './scales.js';
-
 import AsymmetricalChordBox from './components/AsymmetricalChordBox.js';
 import CardinalChordBox from './components/CardinalChordBox.js';
 import ScaleFilterBox from './components/ScaleFilterBox.js';
@@ -14,42 +14,6 @@ import LineTo from './components/LineTo.js';
 // TODO: make chord boxes look better
 // TODO: tooltip over chord telling which keys it's in
 // TODO: add 7th chords!
-
-const chordsBetweenCAndG = [MAJOR_CHORDS, MINOR_CHORDS].map(chord => ['C', 'E', 'Ab'].map(n => chord[n]));
-const chordLinksBetweenCAndG = [
-    [MINOR_CHORDS['C'], MAJOR_CHORDS['C']], [MINOR_CHORDS['E'], MAJOR_CHORDS['C']],
-    [MINOR_CHORDS['E'], MAJOR_CHORDS['E']], [MINOR_CHORDS['Ab'], MAJOR_CHORDS['E']],
-    [MINOR_CHORDS['Ab'], MAJOR_CHORDS['Ab']], [MINOR_CHORDS['C'], MAJOR_CHORDS['Ab']],
-];
-chordsBetweenCAndG[0].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['C'], 1));
-chordsBetweenCAndG[1].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['G'], 1));
-
-const chordsBetweenGAndD = [MINOR_CHORDS, MAJOR_CHORDS].map(chord => ['G', 'B', 'Eb'].map(n => chord[n]));
-const chordLinksBetweenGAndD = [
-    [MAJOR_CHORDS['G'], MINOR_CHORDS['G']], [MAJOR_CHORDS['G'], MINOR_CHORDS['B']],
-    [MAJOR_CHORDS['B'], MINOR_CHORDS['B']], [MAJOR_CHORDS['B'], MINOR_CHORDS['Eb']],
-    [MAJOR_CHORDS['Eb'], MINOR_CHORDS['Eb']], [MAJOR_CHORDS['Eb'], MINOR_CHORDS['G']],
-];
-chordsBetweenGAndD[1].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['G'], 1));
-chordsBetweenGAndD[0].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['D'], 1));
-
-const chordsBetweenDAndF = [MINOR_CHORDS, MAJOR_CHORDS].map(chord => ['D', 'Gb', 'Bb'].map(n => chord[n]));
-const chordLinksBetweenDAndF = [
-    [MAJOR_CHORDS['D'], MINOR_CHORDS['D']], [MAJOR_CHORDS['D'], MINOR_CHORDS['Gb']],
-    [MAJOR_CHORDS['Gb'], MINOR_CHORDS['Gb']], [MAJOR_CHORDS['Gb'], MINOR_CHORDS['Bb']],
-    [MAJOR_CHORDS['Bb'], MINOR_CHORDS['Bb']], [MAJOR_CHORDS['Bb'], MINOR_CHORDS['D']],
-];
-chordsBetweenDAndF[1].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['D'], 1));
-chordsBetweenDAndF[0].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['F'], 1));
-
-const chordsBetweenFAndC = [MAJOR_CHORDS, MINOR_CHORDS].map(chord => ['F', 'A', 'Db'].map(n => chord[n]));
-const chordLinksBetweenFAndC = [
-    [MINOR_CHORDS['F'], MAJOR_CHORDS['F']], [MINOR_CHORDS['A'], MAJOR_CHORDS['F']],
-    [MINOR_CHORDS['A'], MAJOR_CHORDS['A']], [MINOR_CHORDS['Db'], MAJOR_CHORDS['A']],
-    [MINOR_CHORDS['Db'], MAJOR_CHORDS['Db']], [MINOR_CHORDS['F'], MAJOR_CHORDS['Db']],
-];
-chordsBetweenFAndC[0].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['F'], 1));
-chordsBetweenFAndC[1].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['C'], 1));
 
 const connectingLineProps = [
     { from: "c-aug-box", fromAnchor: "right", to: "chords-between-c-and-g-box" },
@@ -106,8 +70,8 @@ class App extends React.Component {
                         positionClassName={buildPositionClassName(6, nTriadBoxes)}
                     />
                     <AsymmetricalChordBox
-                        chordCols={chordsBetweenCAndG}
-                        chordLinks={chordLinksBetweenCAndG}
+                        chordCols={TRIAD_GROUPS.betweenCAndG}
+                        chordLinks={TRIAD_LINKS.betweenCAndG}
                         selectedChords={this.state.selectedChords}
                         lineToClassName="chords-between-c-and-g-box"
                         positionClassName={buildPositionClassName(7, nTriadBoxes)}
@@ -119,8 +83,8 @@ class App extends React.Component {
                         positionClassName={buildPositionClassName(0, nTriadBoxes)}
                     />
                     <AsymmetricalChordBox
-                        chordCols={chordsBetweenGAndD}
-                        chordLinks={chordLinksBetweenGAndD}
+                        chordCols={TRIAD_GROUPS.betweenGAndD}
+                        chordLinks={TRIAD_LINKS.betweenGAndD}
                         selectedChords={this.state.selectedChords}
                         lineToClassName="chords-between-g-and-d-box"
                         positionClassName={buildPositionClassName(1, nTriadBoxes)}
@@ -132,8 +96,8 @@ class App extends React.Component {
                         positionClassName={buildPositionClassName(2, nTriadBoxes)}
                     />
                     <AsymmetricalChordBox
-                        chordCols={chordsBetweenDAndF}
-                        chordLinks={chordLinksBetweenDAndF}
+                        chordCols={TRIAD_GROUPS.betweenDAndF}
+                        chordLinks={TRIAD_LINKS.betweenDAndF}
                         selectedChords={this.state.selectedChords}
                         lineToClassName="chords-between-d-and-f-box"
                         positionClassName={buildPositionClassName(3, nTriadBoxes)}
@@ -145,8 +109,8 @@ class App extends React.Component {
                         positionClassName={buildPositionClassName(4, nTriadBoxes)}
                     />
                     <AsymmetricalChordBox
-                        chordCols={chordsBetweenFAndC}
-                        chordLinks={chordLinksBetweenFAndC}
+                        chordCols={TRIAD_GROUPS.betweenFAndC}
+                        chordLinks={TRIAD_LINKS.betweenFAndC}
                         selectedChords={this.state.selectedChords}
                         lineToClassName="chords-between-f-and-c-box"
                         positionClassName={buildPositionClassName(5, nTriadBoxes)}
