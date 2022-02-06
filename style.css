@@ -14,11 +14,10 @@ h2 {
   text-align: center;
 }
 .triad-container {
-  margin: auto;
+  margin: 4em auto 3em;
   position: relative;
-  width: 60%;
-  height: 60%;
-  margin-bottom: 10em;
+  max-width: 50em;
+  height: 40%;
 }
 .scale-filter-box {
   background-color: grey;
