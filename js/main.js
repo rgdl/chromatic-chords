@@ -10,7 +10,9 @@ import ScaleFilterBox from './components/ScaleFilterBox.js';
 import LineTo from './components/LineTo.js';
 
 
-// TODO: eventually should have index.js instead of index.html
+
+// TODO: Display as a CSS grid?
+// TODO: eventually should have index.js instead of index.html, match the structure of a stock example react repo
 // TODO: make chord boxes look better
 // TODO: tooltip over chord telling which keys it's in
 // TODO: add 7th chords!
@@ -25,11 +27,6 @@ const connectingLineProps = [
     { from: "f-aug-box", fromAnchor: "bottom", to: "chords-between-d-and-f-box" },
     { from: "f-aug-box", fromAnchor: "top", to: "chords-between-f-and-c-box" },
 ];
-
-function buildPositionClassName(n, total) {
-    // If this is the 2nd of 6 chord boxes in a circle, we should have n = 1, total = 6
-    return `box-position-${n}-of-${total}`;
-}
 
 class App extends React.Component {
     constructor(props) {
@@ -56,8 +53,6 @@ class App extends React.Component {
     }
 
     render() {
-        const nTriadBoxes = 8;
-
         return (
             <React.Fragment>
                 <h1>Chromatic Chords</h1>
@@ -71,14 +66,14 @@ class App extends React.Component {
                             || this.state.selectedChords.includes(AUG_TRIADS['C'])
                         }
                         lineToClassName="c-aug-box"
-                        positionClassName={buildPositionClassName(6, nTriadBoxes)}
+                        positionClassName="top-box h-middle-box"
                     />
                     <AsymmetricalChordBox
                         chordCols={TRIAD_GROUPS.betweenCAndG}
                         chordLinks={TRIAD_LINKS.betweenCAndG}
                         selectedChords={this.state.selectedChords}
                         lineToClassName="chords-between-c-and-g-box"
-                        positionClassName={buildPositionClassName(7, nTriadBoxes)}
+                        positionClassName="top-box right-box"
                     />
 
                     <CardinalChordBox
@@ -88,14 +83,14 @@ class App extends React.Component {
                             || this.state.selectedChords.includes(AUG_TRIADS['G'])
                         }
                         lineToClassName="g-aug-box"
-                        positionClassName={buildPositionClassName(0, nTriadBoxes)}
+                        positionClassName="v-middle-box right-box"
                     />
                     <AsymmetricalChordBox
                         chordCols={TRIAD_GROUPS.betweenGAndD}
                         chordLinks={TRIAD_LINKS.betweenGAndD}
                         selectedChords={this.state.selectedChords}
                         lineToClassName="chords-between-g-and-d-box"
-                        positionClassName={buildPositionClassName(1, nTriadBoxes)}
+                        positionClassName="bottom-box right-box"
                     />
 
                     <CardinalChordBox
@@ -105,14 +100,14 @@ class App extends React.Component {
                             || this.state.selectedChords.includes(AUG_TRIADS['D'])
                         }
                         lineToClassName="d-aug-box"
-                        positionClassName={buildPositionClassName(2, nTriadBoxes)}
+                        positionClassName="bottom-box h-middle-box"
                     />
                     <AsymmetricalChordBox
                         chordCols={TRIAD_GROUPS.betweenDAndF}
                         chordLinks={TRIAD_LINKS.betweenDAndF}
                         selectedChords={this.state.selectedChords}
                         lineToClassName="chords-between-d-and-f-box"
-                        positionClassName={buildPositionClassName(3, nTriadBoxes)}
+                        positionClassName="bottom-box left-box"
                     />
 
                     <CardinalChordBox
@@ -122,14 +117,14 @@ class App extends React.Component {
                             || this.state.selectedChords.includes(AUG_TRIADS['F'])
                         }
                         lineToClassName="f-aug-box"
-                        positionClassName={buildPositionClassName(4, nTriadBoxes)}
+                        positionClassName="v-middle-box left-box"
                     />
                     <AsymmetricalChordBox
                         chordCols={TRIAD_GROUPS.betweenFAndC}
                         chordLinks={TRIAD_LINKS.betweenFAndC}
                         selectedChords={this.state.selectedChords}
                         lineToClassName="chords-between-f-and-c-box"
-                        positionClassName={buildPositionClassName(5, nTriadBoxes)}
+                        positionClassName="top-box left-box"
                     />
                     {connectingLineProps.map((p, i) => (
                         <LineTo {...p} borderColor="darkred" zIndex={0} key={i} />
