@@ -34,6 +34,9 @@ export default function AsymmetricalChordBox(props) {
                     <tr key={`chord_row${i}`}>
                         {Array(nCols).fill(0).map((_, j) => {
                             const chord = props.chordCols[j][i];
+                            if (!chord) {
+                                return null;
+                            }
                             return renderChordTableCell(
                                 chord,
                                 props.selectedChords,
