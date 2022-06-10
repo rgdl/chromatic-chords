@@ -23,12 +23,24 @@ h1, h2 { text-align: center; }
 
 .scale-filter-box {
     background-color: grey;
-    .scale-filter-check-box {
-        display: inline-block;
-        input { margin-left: 15px; }
+    display: flex;
+    flex-direction: column;
+    div {
+        display: flex;
+        align-items: center;
+        flex-grow: 1;
+        flex-wrap: wrap;
+        margin-bottom: 15px;
+        div {
+            max-width: 50px;
+            margin-bottom: 0;
+        }
     }
-    h2 { margin: 0; }
-    h3 { display: inline-block; }
+    h2 { margin: 15px; }
+    h3 {
+        display: inline-block;
+        margin: 0 15px;
+    }
 }
 
 .chord-box {

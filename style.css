@@ -21,18 +21,26 @@ h2 {
 }
 .scale-filter-box {
   background-color: grey;
+  display: flex;
+  flex-direction: column;
 }
-.scale-filter-box .scale-filter-check-box {
-  display: inline-block;
+.scale-filter-box div {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
 }
-.scale-filter-box .scale-filter-check-box input {
-  margin-left: 15px;
+.scale-filter-box div div {
+  max-width: 50px;
+  margin-bottom: 0;
 }
 .scale-filter-box h2 {
-  margin: 0;
+  margin: 15px;
 }
 .scale-filter-box h3 {
   display: inline-block;
+  margin: 0 15px;
 }
 .chord-box,
 .cardinal-chord-box,
