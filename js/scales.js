@@ -36,8 +36,3 @@ export const DIATONIC_SCALES = Object.fromEntries(NOTE_NAMES.map(
         ],
     )]
 ));
-
-// Spot checks
-console.assert(DIATONIC_SCALES['C'].contains(MAJOR_CHORDS['C']));
-console.assert(DIATONIC_SCALES['C'].contains(MINOR_CHORDS['A']));
-console.assert(DIATONIC_SCALES['B'].contains(MAJOR_CHORDS['Gb']));

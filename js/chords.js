@@ -67,26 +67,6 @@ export const MINOR_7THS = buildChordCollection('Minor 7th', [0, 3, 7, 10]);
 export const DOMINANT_7THS = buildChordCollection('Dominant 7th', [0, 4, 7, 10]);
 export const HALF_DIMINISHED_7THS = buildChordCollection('Half-Diminished 7th', [0, 3, 6, 10]);
 
-export function assertChordDistanceEquals(chordA, chordB, expectedDistance) {
-    const actualDistance = chordA.distance(chordB);
-    if (actualDistance !== expectedDistance) {
-        chordA.distance(chordB);
-        throw new Error(`Distance from ${chordA.name} to ${chordB.name} is ${actualDistance}, but the expected distance is ${expectedDistance}`);
-    }
-}
-
-// Spot-check assertions on chord distances
-[['C', 'F'], ['F', 'D'], ['D', 'G'], ['G', 'C']].map(
-    chords => assertChordDistanceEquals(AUG_TRIADS[chords[0]], AUG_TRIADS[chords[1]], 3)
-);
-[['C', 'D'], ['F', 'G'], ['D', 'C'], ['G', 'F']].map(
-    chords => assertChordDistanceEquals(AUG_TRIADS[chords[0]], AUG_TRIADS[chords[1]], 6)
-);
-assertChordDistanceEquals(MAJOR_CHORDS['C'], MINOR_CHORDS['E'], 1);
-assertChordDistanceEquals(MAJOR_CHORDS['C'], MAJOR_CHORDS['G'], 3);
-assertChordDistanceEquals(MAJOR_CHORDS['E'], AUG_TRIADS['C'], 1);
-assertChordDistanceEquals(AUG_TRIADS['C'], MAJOR_CHORDS['E'], 1);
-
 export const TRIAD_GROUPS = {
     betweenCAndG: [MAJOR_CHORDS, MINOR_CHORDS].map(chord => ['C', 'E', 'Ab'].map(n => chord[n])),
     betweenGAndD: [MINOR_CHORDS, MAJOR_CHORDS].map(chord => ['G', 'B', 'Eb'].map(n => chord[n])),
@@ -120,20 +100,6 @@ export const SEVENTH_GROUPS = {
         ['F', 'Ab', 'B', 'D'].map(n => DOMINANT_7THS[n]),
     ],
 }; 
-
-// TODO: move test code somehwere it can be run with npx or something
-// Spot-check on triad groups
-TRIAD_GROUPS.betweenCAndG[0].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['C'], 1));
-TRIAD_GROUPS.betweenCAndG[1].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['G'], 1));
-
-TRIAD_GROUPS.betweenGAndD[1].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['G'], 1));
-TRIAD_GROUPS.betweenGAndD[0].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['D'], 1));
-
-TRIAD_GROUPS.betweenDAndF[1].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['D'], 1));
-TRIAD_GROUPS.betweenDAndF[0].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['F'], 1));
-
-TRIAD_GROUPS.betweenFAndC[0].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['F'], 1));
-TRIAD_GROUPS.betweenFAndC[1].map(chord => assertChordDistanceEquals(chord, AUG_TRIADS['C'], 1));
 
 // Chords that can be interchanged by moving one voice by a semitone
 export const TRIAD_LINKS = {
@@ -262,14 +228,3 @@ export const SEVENTH_LINKS = {
         [DOMINANT_7THS['D'], DOMINANT_FLAT_5THS['D']],
     ],
 };
-
-Object.keys(SEVENTH_LINKS).map(
-    group => SEVENTH_LINKS[group].map(
-        pair => {
-            if (pair.length !== 2 || pair[0].distance(pair[1]) !== 1) {
-                console.log('Bad link:', pair);
-                throw 'bad link!';
-            }
-        }
-    )
-);
