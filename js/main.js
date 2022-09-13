@@ -15,7 +15,7 @@ import LineTo from './components/LineTo.js';
 // TODO: eventually should have index.js instead of index.html, match the structure of a stock example react repo
 // TODO: make chord boxes look better, probably each chord as a separate bubble
 // TODO: tooltip over chord telling which keys it's in
-// TODO: fix lines on 7th chords
+// TODO: fix alignment of 7th chords
 
 const connectingLineProps = [
     { from: "c-aug-box", fromAnchor: "right", to: "triads-between-c-and-g-box" },

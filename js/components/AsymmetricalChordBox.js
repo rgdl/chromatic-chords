@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 
 import LineTo from './LineTo.js';
 
+function renderGap(key) {
+    return <td className="chordLinkCell" key={`${key}_gap`} />;
+}
 
 function renderChordTableCell(chord, selectedChords, key, isLastInRow) {
     const name = chord.name;
@@ -13,7 +16,16 @@ function renderChordTableCell(chord, selectedChords, key, isLastInRow) {
     return (
         <React.Fragment key={key}>
             <td key={key} className={chordClassName}>{name}</td>
-            {isLastInRow && (<td className="chordLinkCell" key={`${key}_gap`} />)}
+            {isLastInRow && renderGap(key)}
+        </React.Fragment>
+    );
+}
+
+function renderEmptyTableCell(key, isLastInRow) {
+    return (
+        <React.Fragment key={key}>
+            <td>&nbsp;</td>
+            {isLastInRow && renderGap(key)}
         </React.Fragment>
     );
 }
@@ -35,7 +47,10 @@ export default function AsymmetricalChordBox(props) {
                         {Array(nCols).fill(0).map((_, j) => {
                             const chord = props.chordCols[j][i];
                             if (!chord) {
-                                return null;
+                                return renderEmptyTableCell(
+                                    `blank_${i}_${j}`,
+                                    j < nCols - 1,
+                                );
                             }
                             return renderChordTableCell(
                                 chord,

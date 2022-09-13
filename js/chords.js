@@ -76,28 +76,28 @@ export const TRIAD_GROUPS = {
 
 export const SEVENTH_GROUPS = {
     betweenCAndG: [
-        ['C', 'Eb', 'Gb', 'A'].map(n => HALF_DIMINISHED_7THS[n]),
+        [null, ...['C', 'Eb', 'Gb', 'A'].map(n => HALF_DIMINISHED_7THS[n])],
         [
             ...['C', 'Eb', 'Gb', 'A'].map(n => MINOR_7THS[n]),
             ...['C', 'A'].map(n => DOMINANT_FLAT_5THS[n]),
         ],
-        ['C', 'Eb', 'Gb', 'A'].map(n => DOMINANT_7THS[n]),
+        [null, ...['C', 'Eb', 'Gb', 'A'].map(n => DOMINANT_7THS[n])],
     ],
     betweenGAndF: [
-        ['G', 'Bb', 'Db', 'E'].map(n => HALF_DIMINISHED_7THS[n]),
+        [null, ...['G', 'Bb', 'Db', 'E'].map(n => HALF_DIMINISHED_7THS[n])],
         [
             ...['G', 'Bb', 'Db', 'E'].map(n => MINOR_7THS[n]),
             ...['G', 'E'].map(n => DOMINANT_FLAT_5THS[n]),
         ],
-        ['G', 'Bb', 'Db', 'E'].map(n => DOMINANT_7THS[n]),
+        [null, ...['G', 'Bb', 'Db', 'E'].map(n => DOMINANT_7THS[n])],
     ],
     betweenFAndC: [
-        ['F', 'Ab', 'B', 'D'].map(n => HALF_DIMINISHED_7THS[n]),
+        [null, ...['F', 'Ab', 'B', 'D'].map(n => HALF_DIMINISHED_7THS[n])],
         [
             ...['F', 'Ab', 'B', 'D'].map(n => MINOR_7THS[n]),
             ...['F', 'D'].map(n => DOMINANT_FLAT_5THS[n]),
         ],
-        ['F', 'Ab', 'B', 'D'].map(n => DOMINANT_7THS[n]),
+        [null, ...['F', 'Ab', 'B', 'D'].map(n => DOMINANT_7THS[n])],
     ],
 }; 
 
